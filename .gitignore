@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### l4j8Cache ###
+l4j8cache\*
