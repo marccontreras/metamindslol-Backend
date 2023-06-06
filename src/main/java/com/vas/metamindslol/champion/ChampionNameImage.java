@@ -7,9 +7,8 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-public class ChampionNameImage implements Serializable,Comparable<ChampionNameImage> {
-    @Serial
-    private static final long serialVersionUID = 0;
+public class ChampionNameImage implements Comparable<ChampionNameImage> {
+
     private String name;
     private String image;
 

@@ -16,7 +16,7 @@ public class ChampionService {
      *
      * @return The name and image route of the champions ordered by name
      */
-    public static List<ChampionNameImage> getChampions() {
+    public List<ChampionNameImage> getChampions() {
         List<ChampionNameImage> champions= new ArrayList<>();
 
         dDragonAPI.getChampions().forEach((k,v)-> champions.add(new ChampionNameImage(v.getName(),v.getImage().getFull())));
@@ -29,7 +29,7 @@ public class ChampionService {
      * @param championId
      * @return The champion asked by parameter
      */
-    public static StaticChampion getChampion(Integer championId) {
+    public  StaticChampion getChampion(Integer championId) {
 
          return dDragonAPI.getChampion(championId);
     }
