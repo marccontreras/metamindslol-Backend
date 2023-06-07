@@ -1,0 +1,2 @@
+return -1 if there's an error
+return -2 if not found

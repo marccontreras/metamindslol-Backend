@@ -12,13 +12,13 @@ public class ItemController {
     ItemService service;
     @GetMapping(value = "/items")
     public String getItems(){
-        return new Gson().toJson(service.getItems());
+        return service.getItems();
 
     }
 
     @GetMapping(value = "/items/{itemId}")
     public String getItem(@PathVariable Integer itemId){
-        return new Gson().toJson(service.getItem(itemId));
+        return service.getItem(itemId);
     }
 
 

@@ -13,16 +13,16 @@ import java.util.List;
 public class ChampionController {
     @Autowired
     ChampionService service;
-    private static Gson gson = new Gson();
+
     @GetMapping(value = "/champions")
     public  String getChampions(){
-        return gson.toJson(service.getChampions(),ChampionNameImage.class);
+        return service.getChampions();
 
     }
 
     @GetMapping(value = "/champions/{championId}")
     public String getChampion(@PathVariable Integer championId){
-        return gson.toJson(service.getChampion(championId));
+        return service.getChampion(championId);
     }
 
     //default test crida

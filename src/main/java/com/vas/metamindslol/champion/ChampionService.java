@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.vas.metamindslol.GsonInstance.gson;
 import static com.vas.metamindslol.R4JInstance.dDragonAPI;
 
 @Service
@@ -16,12 +17,12 @@ public class ChampionService {
      *
      * @return The name and image route of the champions ordered by name
      */
-    public List<ChampionNameImage> getChampions() {
+    public String getChampions() {
         List<ChampionNameImage> champions= new ArrayList<>();
 
         dDragonAPI.getChampions().forEach((k,v)-> champions.add(new ChampionNameImage(v.getName(),v.getImage().getFull())));
         Collections.sort( champions);
-        return champions;
+        return gson.toJson(champions);
     }
 
     /**
@@ -29,9 +30,9 @@ public class ChampionService {
      * @param championId
      * @return The champion asked by parameter
      */
-    public  StaticChampion getChampion(Integer championId) {
+    public String getChampion(Integer championId) {
 
-         return dDragonAPI.getChampion(championId);
+         return gson.toJson(dDragonAPI.getChampion(championId));
     }
 
     //TODO: when there's the search-bar, be sure to pass the name and image of the champ(maybe even wr)
