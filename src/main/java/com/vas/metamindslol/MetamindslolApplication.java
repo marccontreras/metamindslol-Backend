@@ -3,6 +3,7 @@ package com.vas.metamindslol;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 import no.stelar7.api.r4j.impl.lol.builders.summoner.SummonerBuilder;
 import no.stelar7.api.r4j.impl.lol.raw.ImageAPI;
+import no.stelar7.api.r4j.impl.lol.raw.MatchV5API;
 import no.stelar7.api.r4j.pojo.lol.match.v5.LOLMatch;
 import no.stelar7.api.r4j.pojo.lol.match.v5.MatchParticipant;
 import no.stelar7.api.r4j.pojo.lol.match.v5.MatchPerks;
@@ -40,6 +41,7 @@ public class MetamindslolApplication {
         //most recent game
         List<String> matches = summoner.getLeagueGames().get();
         LOLMatch match = LOLMatch.get(region, matches.get(0));
+        //MatchV5API.getInstance().getMatchList();
         MatchParticipant self = match.getParticipants().stream().filter(p -> p.getPuuid().equals(summoner.getPUUID())).findFirst().get();
         StaticChampion champion = champData.get(self.getChampionId());
         MatchPerks summs = self.getPerks();

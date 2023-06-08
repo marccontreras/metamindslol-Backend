@@ -21,7 +21,6 @@ public class SummonerService {
     public String getSummonerByName(String region, String summonerName) {
 
 
-        String shard = "";
         Optional<LeagueShard> opShard = LeagueShard.fromString(region);
         Summoner summoner = null;
         if (opShard.isPresent())
