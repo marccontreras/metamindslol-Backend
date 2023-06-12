@@ -1,11 +1,12 @@
 package com.vas.metamindslol.match;
 
-import com.google.gson.Gson;
 import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.vas.metamindslol.GsonInstance.gson;
 
 @RestController
 public class MatchController {
@@ -21,12 +22,12 @@ public class MatchController {
     //try it
     @GetMapping(value = "/match/{region}/recentMatch/{summoner}")
     public String getMostRecentMatchBySummoner(@PathVariable String region,@PathVariable String summoner){
-        return service.getMostRecentMatchBySummoner(region,new Gson().fromJson(summoner,Summoner.class));
+        return service.getMostRecentMatchBySummoner(region,gson.fromJson(summoner,Summoner.class));
     }
 
     @GetMapping(value = "/match/{region}/{summoner}/{matchNumber}")
     public String getMatchBySummoner(@PathVariable String region,@PathVariable String summoner,@PathVariable Integer matchNumber){
-        return service.getMatchBySummoner(region,new Gson().fromJson(summoner,Summoner.class),matchNumber);
+        return service.getMatchBySummoner(region, gson.fromJson(summoner,Summoner.class),matchNumber);
     }
 
 }

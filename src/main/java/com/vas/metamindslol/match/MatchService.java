@@ -24,13 +24,14 @@ public class MatchService {
     public String getMostRecentMatchBySummonerName(String region, String summonerName) {
 
         Optional<LeagueShard> opShard = LeagueShard.fromString(region);
-        Summoner summoner = null;
+        Summoner summoner;
+        LOLMatch match=null;
         if (opShard.isPresent()) {
             summoner = loLAPI.getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
             List<String> matches = summoner.getLeagueGames().get();
-            LOLMatch match = LOLMatch.get(opShard.get(), matches.get(0));
+             match = LOLMatch.get(opShard.get(), matches.get(0));
         }
-        return gson.toJson(Objects.requireNonNullElse(summoner, new NotFoundException().getMessage()));
+        return gson.toJson(Objects.requireNonNullElse(match, new NotFoundException().getMessage()));
 
     }
 

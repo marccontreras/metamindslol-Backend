@@ -1,0 +1,38 @@
+package com.vas.metamindslol.match;
+
+import com.vas.metamindslol.R4JInstance;
+import com.vas.metamindslol.exception.NotFoundException;
+import com.vas.metamindslol.items.ItemService;
+import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
+import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class MatchServiceTest {
+    @Autowired
+    MatchService service;
+
+    private String name = "simply me";
+    private Summoner summoner = R4JInstance.loLAPI.getSummonerAPI().getSummonerByName(LeagueShard.EUW1,name);
+    private String region = "EUW";
+
+    @Test
+    public void testgetMatch() {
+
+        Assertions.assertNotNull(service.getMatchBySummoner(region, summoner, 1));
+    }
+
+    @Test
+    public void testgetMostRecentMatch() {
+        Assert.assertNotEquals(new NotFoundException().getMessage(), service.getMostRecentMatchBySummoner(region, summoner));
+    }
+
+    @Test
+    public void testgetMostRecentMatchByName() {
+        Assert.assertNotEquals(new NotFoundException().getMessage(), service.getMostRecentMatchBySummonerName(region, name));
+    }
+}
