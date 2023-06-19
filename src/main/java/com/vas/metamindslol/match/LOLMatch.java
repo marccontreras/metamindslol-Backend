@@ -1,8 +1,6 @@
 package com.vas.metamindslol.match;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import no.stelar7.api.r4j.basic.constants.api.regions.*;
 import no.stelar7.api.r4j.basic.constants.types.lol.*;
@@ -25,16 +23,21 @@ public class LOLMatch implements Serializable
     private int                    gameDuration;
     @Id
     private long                   gameId;
+    @Enumerated(EnumType.STRING)
     private GameModeType           gameMode;
     private String                 gameName;
     private Long                   gameStartTimestamp;
     private Long                   gameEndTimestamp;
+    @Enumerated(EnumType.STRING)
     private GameType               gameType;
     private String                 gameVersion;
+    @Enumerated(EnumType.STRING)
     private MapType                mapId;
     @ElementCollection
     private List<MatchParticipant> participants;
+    @Enumerated(EnumType.STRING)
     private LeagueShard            platformId;
+    @Enumerated(EnumType.STRING)
     private GameQueueType          queueId;
     @ElementCollection
     private List<MatchTeam>        teams;

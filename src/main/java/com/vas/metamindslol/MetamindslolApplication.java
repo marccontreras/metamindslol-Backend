@@ -35,6 +35,7 @@ public class MetamindslolApplication {
 
         ApiPropertiesTestComponent testComponent = context.getBean(ApiPropertiesTestComponent.class);
         testComponent.printApiKey();
+        //R4JInstance.apiKey=testComponent.getApiKey();
         //R4JInstance.setApiKey(testComponent.getApiKey());
 
         //api.getLoLAPI().getMatchAPI().getMatchList()
