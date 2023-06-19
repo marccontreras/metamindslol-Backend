@@ -1,5 +1,7 @@
 package com.vas.metamindslol.champion;
 
+import com.vas.metamindslol.R4JInstance;
+import no.stelar7.api.r4j.impl.lol.raw.DDragonAPI;
 import no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion;
 import org.springframework.stereotype.Service;
 
@@ -8,10 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.vas.metamindslol.GsonInstance.gson;
-import static com.vas.metamindslol.R4JInstance.dDragonAPI;
 
 @Service
 public class ChampionService {
+    DDragonAPI dDragonAPI= R4JInstance.dDragonAPI;
 
     /**
      *

@@ -1,5 +1,6 @@
 package com.vas.metamindslol.match;
 
+import com.vas.metamindslol.R4JInstance;
 import com.vas.metamindslol.exception.NotFoundException;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 import no.stelar7.api.r4j.pojo.lol.match.v5.LOLMatch;
@@ -11,10 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static com.vas.metamindslol.GsonInstance.gson;
-import static com.vas.metamindslol.R4JInstance.loLAPI;
 
 @Service
 public class MatchService {
+
+
 
     /**
      * @param region
@@ -27,7 +29,7 @@ public class MatchService {
         Summoner summoner;
         LOLMatch match=null;
         if (opShard.isPresent()) {
-            summoner = loLAPI.getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
+            summoner = R4JInstance.loLAPI.getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
             List<String> matches = summoner.getLeagueGames().get();
              match = LOLMatch.get(opShard.get(), matches.get(0));
         }
