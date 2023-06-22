@@ -3,12 +3,13 @@ package com.vas.metamindslol.champion;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import no.stelar7.api.r4j.pojo.lol.shared.BaseSpellData;
+import lombok.Data;
 import no.stelar7.api.r4j.pojo.lol.staticdata.shared.Image;
 
 import java.util.*;
 
 @Entity
+@Data
 public class StaticChampionSpell extends BaseSpellData
 {
     private static final long serialVersionUID = 3332883769496451613L;

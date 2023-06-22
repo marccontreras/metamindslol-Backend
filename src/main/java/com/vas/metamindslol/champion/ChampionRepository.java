@@ -1,4 +1,10 @@
 package com.vas.metamindslol.champion;
 
-public class ChampionRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
+
+public interface ChampionRepository extends JpaRepository<StaticChampion, Integer> {
+
+
 }

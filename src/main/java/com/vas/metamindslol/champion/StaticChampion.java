@@ -1,9 +1,7 @@
 package com.vas.metamindslol.champion;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.Data;
 import no.stelar7.api.r4j.pojo.lol.staticdata.champion.*;
 import no.stelar7.api.r4j.pojo.lol.staticdata.shared.Image;
 
@@ -11,263 +9,249 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class StaticChampion implements Serializable
-{
+@Data
+public class StaticChampion implements Serializable {
 
     @ElementCollection
-    private List<String>              allytips;
-    private String                    blurb;
+    private List<String> allytips;
+    @Lob
+    private String blurb;
     @ElementCollection
-    private List<String>              enemytips;
+    private List<String> enemytips;
     @Id
-    private int                       id;
-    private Image                     image;
+    private int id;
+    private Image image;
     private Info info;
-    private String                    key;
-    private String                    lore;
-    private String                    name;
-    private String                    partype;
+    @Lob
+    private String key;
+    @Lob
+    private String lore;
+    @Lob
+    private String name;
+    @Lob
+    private String partype;
+    @OneToOne
     private Passive passive;
     //mirar en el futur si els he de crear jo aquestes dades o si es poden extreure de veritat d'aquest element
-    private transient List<Recommended>         recommended;
-    private transient List<Skin>                skins;
+    private transient List<Recommended> recommended;
+    private transient List<Skin> skins;
     //configurar com a un string que apunti a on estan les imatges
-    @OneToMany
-    private  List<StaticChampionSpell> spells;
-    private StaticChampionStats       stats;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
+    private List<StaticChampionSpell> spells;
+    private StaticChampionStats stats;
     @ElementCollection
-    private List<String>              tags;
-    private String                    title;
-    
-    
+    private List<String> tags;
+    @Lob
+    private String title;
+
+
     /**
      * Gets the allytips.
      *
      * @return the allytips
      */
-    public List<String> getAllytips()
-    {
+    public List<String> getAllytips() {
         return this.allytips;
     }
-    
+
     /**
      * Gets the blurb.
      *
      * @return the blurb
      */
-    public String getBlurb()
-    {
+    public String getBlurb() {
         return this.blurb;
     }
-    
+
     /**
      * Gets the enemytips.
      *
      * @return the enemytips
      */
-    public List<String> getEnemytips()
-    {
+    public List<String> getEnemytips() {
         return this.enemytips;
     }
-    
+
     /**
      * Gets the id.
      *
      * @return the id
      */
-    public int getId()
-    {
+    public int getId() {
         return this.id;
     }
-    
+
     /**
      * Gets the image.
      *
      * @return the image
      */
-    public Image getImage()
-    {
+    public Image getImage() {
         return this.image;
     }
-    
+
     /**
      * Gets the info.
      *
      * @return the info
      */
-    public Info getInfo()
-    {
+    public Info getInfo() {
         return this.info;
     }
-    
+
     /**
      * Gets the key.
      *
      * @return the key
      */
-    public String getKey()
-    {
+    public String getKey() {
         return this.key;
     }
-    
+
     /**
      * Gets the lore.
      *
      * @return the lore
      */
-    public String getLore()
-    {
+    public String getLore() {
         return this.lore;
     }
-    
+
     /**
      * Gets the name.
      *
      * @return the name
      */
-    public String getName()
-    {
+    public String getName() {
         return this.name;
     }
-    
+
     /**
      * Gets the partype.
      *
      * @return the partype
      */
-    public String getPartype()
-    {
+    public String getPartype() {
         return this.partype;
     }
-    
+
     /**
      * Gets the passive.
      *
      * @return the passive
      */
-    public Passive getPassive()
-    {
+    public Passive getPassive() {
         return this.passive;
     }
-    
+
     /**
      * Gets the recommended.
      *
      * @return the recommended
      */
-    public List<Recommended> getRecommended()
-    {
+    public List<Recommended> getRecommended() {
         return this.recommended;
     }
-    
+
     /**
      * Gets the skins.
      *
      * @return the skins
      */
-    public List<Skin> getSkins()
-    {
+    public List<Skin> getSkins() {
         return this.skins;
     }
-    
+
     /**
      * Gets the spells.
      *
      * @return the spells
      */
-    public List<StaticChampionSpell> getSpells()
-    {
+    public List<StaticChampionSpell> getSpells() {
         return this.spells;
     }
-    
+
     /**
      * Gets the stats.
      *
      * @return the stats
      */
-    public StaticChampionStats getStats()
-    {
+    public StaticChampionStats getStats() {
         return this.stats;
     }
-    
+
     /**
      * Gets the tags.
      *
      * @return the tags
      */
-    public List<String> getTags()
-    {
+    public List<String> getTags() {
         return this.tags;
     }
-    
+
     /**
      * Gets the title.
      *
      * @return the title
      */
-    public String getTitle()
-    {
+    public String getTitle() {
         return this.title;
     }
-    
+
     @Override
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass())
-        {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         StaticChampion that = (StaticChampion) o;
         return id == that.id &&
-               Objects.equals(allytips, that.allytips) &&
-               Objects.equals(blurb, that.blurb) &&
-               Objects.equals(enemytips, that.enemytips) &&
-               Objects.equals(image, that.image) &&
-               Objects.equals(info, that.info) &&
-               Objects.equals(key, that.key) &&
-               Objects.equals(lore, that.lore) &&
-               Objects.equals(name, that.name) &&
-               Objects.equals(partype, that.partype) &&
-               Objects.equals(passive, that.passive) &&
-               Objects.equals(recommended, that.recommended) &&
-               Objects.equals(skins, that.skins) &&
-               Objects.equals(spells, that.spells) &&
-               Objects.equals(stats, that.stats) &&
-               Objects.equals(tags, that.tags) &&
-               Objects.equals(title, that.title);
+                Objects.equals(allytips, that.allytips) &&
+                Objects.equals(blurb, that.blurb) &&
+                Objects.equals(enemytips, that.enemytips) &&
+                Objects.equals(image, that.image) &&
+                Objects.equals(info, that.info) &&
+                Objects.equals(key, that.key) &&
+                Objects.equals(lore, that.lore) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(partype, that.partype) &&
+                Objects.equals(passive, that.passive) &&
+                Objects.equals(recommended, that.recommended) &&
+                Objects.equals(skins, that.skins) &&
+                Objects.equals(spells, that.spells) &&
+                Objects.equals(stats, that.stats) &&
+                Objects.equals(tags, that.tags) &&
+                Objects.equals(title, that.title);
     }
-    
+
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Objects.hash(allytips, blurb, enemytips, id, image, info, key, lore, name, partype, passive, recommended, skins, spells, stats, tags, title);
     }
-    
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "StaticChampion{" +
-               "allytips=" + allytips +
-               ", blurb='" + blurb + '\'' +
-               ", enemytips=" + enemytips +
-               ", id=" + id +
-               ", image=" + image +
-               ", info=" + info +
-               ", key='" + key + '\'' +
-               ", lore='" + lore + '\'' +
-               ", name='" + name + '\'' +
-               ", partype='" + partype + '\'' +
-               ", passive=" + passive +
-               ", recommended=" + recommended +
-               ", skins=" + skins +
-               ", spells=" + spells +
-               ", stats=" + stats +
-               ", tags=" + tags +
-               ", title='" + title + '\'' +
-               '}';
+                "allytips=" + allytips +
+                ", blurb='" + blurb + '\'' +
+                ", enemytips=" + enemytips +
+                ", id=" + id +
+                ", image=" + image +
+                ", info=" + info +
+                ", key='" + key + '\'' +
+                ", lore='" + lore + '\'' +
+                ", name='" + name + '\'' +
+                ", partype='" + partype + '\'' +
+                ", passive=" + passive +
+                ", recommended=" + recommended +
+                ", skins=" + skins +
+                ", spells=" + spells +
+                ", stats=" + stats +
+                ", tags=" + tags +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

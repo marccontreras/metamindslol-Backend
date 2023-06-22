@@ -34,7 +34,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'com.github.stelar7:R4J:2.2.11'
 	implementation 'com.google.code.gson:gson'
-	runtimeOnly 'org.postgresql:postgresql:42.2.1'
+	runtimeOnly 'org.postgresql:postgresql:42.2.27'
 // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
 	implementation 'org.modelmapper:modelmapper:3.1.1'
 	// https://mvnrepository.com/artifact/org.hibernate/hibernate-core
