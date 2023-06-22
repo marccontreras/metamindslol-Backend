@@ -1,4 +1,4 @@
-package com.vas.metamindslol.match;
+package com.vas.metamindslol.matchV5;
 
 import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.springframework.beans.factory.annotation.Autowired;

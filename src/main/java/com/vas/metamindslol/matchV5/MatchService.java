@@ -1,4 +1,4 @@
-package com.vas.metamindslol.match;
+package com.vas.metamindslol.matchV5;
 
 import com.vas.metamindslol.R4JInstance;
 import com.vas.metamindslol.exception.NotFoundException;

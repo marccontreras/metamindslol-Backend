@@ -1,8 +1,7 @@
-package com.vas.metamindslol.match;
+package com.vas.metamindslol.matchV5;
 
 import com.vas.metamindslol.R4JInstance;
 import com.vas.metamindslol.exception.NotFoundException;
-import com.vas.metamindslol.items.ItemService;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.junit.Assert;

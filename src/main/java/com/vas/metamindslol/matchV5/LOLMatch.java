@@ -1,12 +1,10 @@
-package com.vas.metamindslol.match;
+package com.vas.metamindslol.matchV5;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import no.stelar7.api.r4j.basic.constants.api.regions.*;
 import no.stelar7.api.r4j.basic.constants.types.lol.*;
-import no.stelar7.api.r4j.impl.lol.raw.MatchV5API;
-import no.stelar7.api.r4j.pojo.lol.match.v5.MatchParticipant;
-import no.stelar7.api.r4j.pojo.lol.match.v5.MatchTeam;
+
 
 import java.io.Serializable;
 import java.time.*;
@@ -33,13 +31,13 @@ public class LOLMatch implements Serializable
     private String                 gameVersion;
     @Enumerated(EnumType.STRING)
     private MapType                mapId;
-    @ElementCollection
+    @OneToMany
     private List<MatchParticipant> participants;
     @Enumerated(EnumType.STRING)
     private LeagueShard            platformId;
     @Enumerated(EnumType.STRING)
     private GameQueueType          queueId;
-    @ElementCollection
+    @OneToMany
     private List<MatchTeam>        teams;
     private String                 tournamentCode;
     

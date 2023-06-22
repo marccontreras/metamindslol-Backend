@@ -73,7 +73,7 @@ public class MetamindslolApplication {
         LOLTimeline timeline=MatchV5API.getInstance().getTimeline(RegionShard.EUROPE,matches.get(0));
         // get all games
 
-        LazyList<LeagueEntry> games= R4JInstance.baseAPI.getLoLAPI().getLeagueAPI().getLeagueByTierDivisionLazy(LeagueShard.EUW1, GameQueueType.RANKED_SOLO_5X5, TierDivisionType.GRANDMASTER_I);
+        LazyList<LeagueEntry> games= R4JInstance.baseAPI.getLoLAPI().getLeagueAPI().getLeagueByTierDivisionLazy(LeagueShard.EUW1, GameQueueType.RANKED_SOLO_5X5, TierDivisionType.CHALLENGER_I);
         games.loadFully();
         games.forEach(t-> System.out.println(t.toString()));
     }

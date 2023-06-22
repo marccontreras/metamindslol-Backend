@@ -1,6 +1,7 @@
 package com.vas.metamindslol.Timeline;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,11 +11,14 @@ public class TimelineParticipantIdentity implements Serializable
     private static final long serialVersionUID = -6722375304471308188L;
 
 
-    @ManyToOne
-    @Id
-    private LOLTimeline TimeLine;
 
+    //@ManyToOne
+    //private LOLTimeline TimeLine;
     @Id
+    @GeneratedValue(generator = "TimelineParticipantIdentity-sequence-generator")
+    @GenericGenerator(
+            name = "TimelineParticipantIdentity-sequence-generator")
+    private long id;
     private int    participantId;
 
     private String puuid;

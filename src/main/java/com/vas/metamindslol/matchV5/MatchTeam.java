@@ -1,28 +1,28 @@
-package com.vas.metamindslol.match;
+package com.vas.metamindslol.matchV5;
 
-import com.vas.metamindslol.Timeline.LOLTimeline;
 import jakarta.persistence.*;
 import no.stelar7.api.r4j.basic.constants.types.lol.TeamType;
-import no.stelar7.api.r4j.pojo.lol.match.v5.ChampionBan;
-import no.stelar7.api.r4j.pojo.lol.match.v5.ObjectiveStats;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.util.*;
 
+@Entity
 public class MatchTeam implements Serializable
 {
     private static final long serialVersionUID = 2387712867150164023L;
 
-    @PrimaryKeyJoinColumn
-    @ManyToOne
     @Id
-    private LOLMatch match;
-    @ElementCollection
+    @GeneratedValue(generator = "MatchTeam-sequence-generator")
+    @GenericGenerator(
+            name = "MatchTeam-sequence-generator")
+    private long id;
+    @OneToMany
     private List<ChampionBan>           bans;
-    @ElementCollection
+    @OneToMany
+    //might casue problems
     private Map<String, ObjectiveStats> objectives;
     @Enumerated(EnumType.STRING)
-    @Id
     private TeamType                    teamId;
     private boolean                     win;
     
