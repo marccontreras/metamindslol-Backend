@@ -41,7 +41,6 @@ public class ChampionService {
         List<no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion> list = new ArrayList<no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion>(championsDdragon.values());
 
         List<StaticChampion> championsList= new ModelMapperConfig().mapAsList(list,StaticChampion.class);
-        championRepository.saveAll(championsList);
         return championRepository.saveAll(championsList);
     }
 

@@ -1,28 +1,32 @@
 package com.vas.metamindslol.items;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import no.stelar7.api.r4j.pojo.lol.staticdata.shared.Image;
 import no.stelar7.api.r4j.pojo.lol.staticdata.shared.MetaData;
 
 import java.io.Serializable;
 import java.util.*;
 @Entity
+@Data
 public class Item implements Serializable
 {
     private static final long serialVersionUID = 7919515074046086833L;
     @ElementCollection
+    @Column(length=10000)
     private Map<String, String>  effect;
     private String               colloq;
     private boolean              consumeOnFull;
     private boolean              consumed;
     private int                  depth;
+    @Column(length=10000)
     private String               description;
     @ElementCollection
-    @Column(name="itemFrom")
+    @Column(name="itemFrom", length = 1000)
     private List<String>         from;
     @OneToOne
     private Gold                 gold;
-    @Column(name="itemGroup")
+    @Column(name="itemGroup",length = 1000)
     private String               group;
     private boolean              hideFromAll;
     @Id
@@ -30,12 +34,13 @@ public class Item implements Serializable
     private Image image;
     private boolean              inStore;
     @ElementCollection
-    @Column(name="itemInto")
+    @Column(name="itemInto", length = 100)
 
     private List<String>         into;
     @ElementCollection
     private Map<String, Boolean> maps;
     private String               name;
+    @Column(length=10000)
     private String               plaintext;
     private String               requiredChampion;
     private MetaData rune;
