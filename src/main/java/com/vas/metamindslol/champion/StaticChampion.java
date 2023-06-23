@@ -13,22 +13,24 @@ import java.util.*;
 public class StaticChampion implements Serializable {
 
     @ElementCollection
+    @Column(length=10000) // OR @Column(columnDefinition="VARCHAR(10000)")
     private List<String> allytips;
-    @Lob
+    @Column(length=10000)
     private String blurb;
     @ElementCollection
+    @Column(length=10000) // OR @Column(columnDefinition="VARCHAR(10000)")
     private List<String> enemytips;
     @Id
     private int id;
     private Image image;
     private Info info;
-    @Lob
+    @Column(length=100)
     private String key;
-    @Lob
+    @Column(length=10000)
     private String lore;
-    @Lob
+    @Column(length=100)
     private String name;
-    @Lob
+    @Column(length=1000)
     private String partype;
     @OneToOne
     private Passive passive;
@@ -41,8 +43,9 @@ public class StaticChampion implements Serializable {
     private List<StaticChampionSpell> spells;
     private StaticChampionStats stats;
     @ElementCollection
+    @Column(length=10000) // OR @Column(columnDefinition="VARCHAR(10000)")
     private List<String> tags;
-    @Lob
+    @Column(length=100)
     private String title;
 
 

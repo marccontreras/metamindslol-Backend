@@ -1,15 +1,13 @@
 package com.vas.metamindslol.champion;
 
+import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
 import no.stelar7.api.r4j.impl.lol.raw.DDragonAPI;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.vas.metamindslol.GsonInstance.gson;
 
@@ -18,7 +16,7 @@ public class ChampionService {
     DDragonAPI dDragonAPI= R4JInstance.dDragonAPI;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ModelMapperConfig modelMapper;
 
     @Autowired
     ChampionRepository championRepository;
@@ -28,10 +26,23 @@ public class ChampionService {
      */
     public String getChampions() {
         List<ChampionNameImage> champions= new ArrayList<>();
-
-        dDragonAPI.getChampions().forEach((k,v)-> champions.add(new ChampionNameImage(v.getName(),v.getImage().getFull())));
+        List<StaticChampion>championsDB= championRepository.findAll();
+        if(championsDB.isEmpty()) {
+            championsDB= loadChampions();
+        }
+        championsDB.forEach((c) -> champions.add(new ChampionNameImage(c.getName(), c.getImage().getFull())));
         Collections.sort( champions);
         return gson.toJson(champions);
+    }
+
+    public List<StaticChampion> loadChampions() {
+
+        Map<Integer,no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion > championsDdragon=dDragonAPI.getChampions();
+        List<no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion> list = new ArrayList<no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion>(championsDdragon.values());
+
+        List<StaticChampion> championsList= new ModelMapperConfig().mapAsList(list,StaticChampion.class);
+        championRepository.saveAll(championsList);
+        return championRepository.saveAll(championsList);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.vas.metamindslol;
 
+import com.vas.metamindslol.champion.ChampionService;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 import no.stelar7.api.r4j.basic.constants.api.regions.RegionShard;
 import no.stelar7.api.r4j.basic.constants.types.lol.GameQueueType;
@@ -22,7 +23,6 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 import java.util.Map;
-
 
 @SpringBootApplication
 public class MetamindslolApplication {
@@ -67,6 +67,7 @@ public class MetamindslolApplication {
         System.out.format(name + " %s their most recent game.", won ? "won" : "lost");
         System.out.println();
         System.out.println("They were playing " + self.getChampionSelectLane() + " " + champion.getName());
+
 
         //testing things
         //timeline
