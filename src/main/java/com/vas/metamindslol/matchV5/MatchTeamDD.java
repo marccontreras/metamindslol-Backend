@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class MatchTeam implements Serializable
+public class MatchTeamDD implements Serializable
 {
     private static final long serialVersionUID = 2387712867150164023L;
 
@@ -57,8 +57,8 @@ public class MatchTeam implements Serializable
         {
             return false;
         }
-        MatchTeam matchTeam = (MatchTeam) o;
-        return win == matchTeam.win && Objects.equals(bans, matchTeam.bans) && Objects.equals(objectives, matchTeam.objectives) && teamId == matchTeam.teamId;
+        MatchTeamDD matchTeamDD = (MatchTeamDD) o;
+        return win == matchTeamDD.win && Objects.equals(bans, matchTeamDD.bans) && Objects.equals(objectives, matchTeamDD.objectives) && teamId == matchTeamDD.teamId;
     }
     
     @Override
