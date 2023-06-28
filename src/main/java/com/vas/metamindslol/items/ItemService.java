@@ -3,6 +3,7 @@ package com.vas.metamindslol.items;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
 import no.stelar7.api.r4j.impl.lol.raw.DDragonAPI;
+import no.stelar7.api.r4j.pojo.lol.staticdata.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +39,8 @@ public class ItemService {
 
     public List<ItemDD> loadItems() {
 
-        Map<Integer, no.stelar7.api.r4j.pojo.lol.staticdata.item.Item> itemsDdragon=dDragonAPI.getItems();
-        List<no.stelar7.api.r4j.pojo.lol.staticdata.item.Item> list = new ArrayList<>(itemsDdragon.values());
+        Map<Integer, Item> itemsDdragon=dDragonAPI.getItems();
+        List<Item> list = new ArrayList<>(itemsDdragon.values());
 
         List<ItemDD> itemsList= new ModelMapperConfig().mapAsList(list, ItemDD.class);
         return itemRepository.saveAll(itemsList);
@@ -54,7 +55,7 @@ public class ItemService {
         ItemDD itemDD = null;
         Optional<ItemDD> opItem= itemRepository.findById(itemId);
         if(opItem.isEmpty()){
-            no.stelar7.api.r4j.pojo.lol.staticdata.item.Item itemD= dDragonAPI.getItem(itemId);
+            Item itemD= dDragonAPI.getItem(itemId);
             itemDD =modelMapper.map(itemD, ItemDD.class);
             itemRepository.save(itemDD);
         }else{

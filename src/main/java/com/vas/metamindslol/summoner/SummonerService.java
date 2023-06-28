@@ -3,6 +3,7 @@ package com.vas.metamindslol.summoner;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.exception.NotFoundException;
 //import com.vas.metamindslol.enums.LeagueShard;
+import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
@@ -32,7 +33,7 @@ public class SummonerService {
     public String getSummonerByName(String region, String summonerName) {
         Optional<LeagueShard> opShard = LeagueShard.fromString(region);
         SummonerDD summonerDD =null;
-        no.stelar7.api.r4j.pojo.lol.summoner.Summoner summoner = null;
+        Summoner summoner = null;
         if (opShard.isPresent()) {
             summonerDD = summonerRepository.findByNameAndRegion(summonerName, opShard.get());
             if (summonerDD == null) {
@@ -62,7 +63,7 @@ public class SummonerService {
 
     }
     */
-    private SummonerDD loadSummoner(no.stelar7.api.r4j.pojo.lol.summoner.Summoner summoner) {
+    private SummonerDD loadSummoner(Summoner summoner) {
         SummonerDD summonerDDDB = modelMapper.map(summoner, SummonerDD.class);
         return summonerRepository.save(summonerDDDB);
     }

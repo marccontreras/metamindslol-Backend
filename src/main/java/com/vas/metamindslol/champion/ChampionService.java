@@ -3,6 +3,7 @@ package com.vas.metamindslol.champion;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
 import no.stelar7.api.r4j.impl.lol.raw.DDragonAPI;
+import no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,8 @@ public class ChampionService {
 
     public List<StaticChampionDD> loadChampions() {
 
-        Map<Integer,no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion > championsDdragon=dDragonAPI.getChampions();
-        List<no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion> list = new ArrayList<no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion>(championsDdragon.values());
+        Map<Integer,StaticChampion > championsDdragon=dDragonAPI.getChampions();
+        List<StaticChampion> list = new ArrayList<>(championsDdragon.values());
 
         List<StaticChampionDD> championsList= new ModelMapperConfig().mapAsList(list, StaticChampionDD.class);
         return championRepository.saveAll(championsList);
@@ -52,7 +53,7 @@ public class ChampionService {
         StaticChampionDD champion= null;
         Optional<StaticChampionDD> opChampion= championRepository.findById(championId);
         if(opChampion.isEmpty()){
-            no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion championD= dDragonAPI.getChampion(championId);
+            StaticChampion championD= dDragonAPI.getChampion(championId);
             champion=modelMapper.map(championD, StaticChampionDD.class);
             championRepository.save(champion);
         }else{
