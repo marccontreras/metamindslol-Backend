@@ -61,6 +61,5 @@ public class ChampionService {
         }
          return gson.toJson(champion);
     }
-
     //TODO: when there's the search-bar, be sure to pass the name and image of the champ(maybe even wr)
 }
