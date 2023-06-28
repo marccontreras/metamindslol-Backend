@@ -10,7 +10,7 @@ import java.util.*;
 
 @Entity
 @Data
-public class StaticChampion implements Serializable {
+public class StaticChampionDD implements Serializable {
 
     @ElementCollection
     @Column(length=10000) // OR @Column(columnDefinition="VARCHAR(10000)")
@@ -33,14 +33,14 @@ public class StaticChampion implements Serializable {
     @Column(length=1000)
     private String partype;
     @OneToOne
-    private Passive passive;
+    private PassiveDD passive;
     //mirar en el futur si els he de crear jo aquestes dades o si es poden extreure de veritat d'aquest element
     private transient List<Recommended> recommended;
     private transient List<Skin> skins;
     //configurar com a un string que apunti a on estan les imatges
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
-    private List<StaticChampionSpell> spells;
+    private List<StaticChampionSpellDD> spells;
     private StaticChampionStats stats;
     @ElementCollection
     @Column(length=10000) // OR @Column(columnDefinition="VARCHAR(10000)")
@@ -144,7 +144,7 @@ public class StaticChampion implements Serializable {
      *
      * @return the passive
      */
-    public Passive getPassive() {
+    public PassiveDD getPassive() {
         return this.passive;
     }
 
@@ -171,7 +171,7 @@ public class StaticChampion implements Serializable {
      *
      * @return the spells
      */
-    public List<StaticChampionSpell> getSpells() {
+    public List<StaticChampionSpellDD> getSpells() {
         return this.spells;
     }
 
@@ -210,7 +210,7 @@ public class StaticChampion implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        StaticChampion that = (StaticChampion) o;
+        StaticChampionDD that = (StaticChampionDD) o;
         return id == that.id &&
                 Objects.equals(allytips, that.allytips) &&
                 Objects.equals(blurb, that.blurb) &&

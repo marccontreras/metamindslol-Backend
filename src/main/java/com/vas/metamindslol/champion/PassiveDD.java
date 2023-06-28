@@ -6,7 +6,7 @@ import no.stelar7.api.r4j.pojo.lol.staticdata.shared.Image;
 
 import java.io.Serializable;
 @Entity
-public class Passive implements Serializable
+public class PassiveDD implements Serializable
 {
     private static final long serialVersionUID = -1431514724519691319L;
     
@@ -30,7 +30,7 @@ public class Passive implements Serializable
         {
             return false;
         }
-        final Passive other = (Passive) obj;
+        final PassiveDD other = (PassiveDD) obj;
         if (this.description == null)
         {
             if (other.description != null)

@@ -3,7 +3,6 @@ package com.vas.metamindslol.champion;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
 import no.stelar7.api.r4j.impl.lol.raw.DDragonAPI;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class ChampionService {
      */
     public String getChampions() {
         List<ChampionNameImage> champions= new ArrayList<>();
-        List<StaticChampion>championsDB= championRepository.findAll();
+        List<StaticChampionDD>championsDB= championRepository.findAll();
         if(championsDB.isEmpty()) {
             championsDB= loadChampions();
         }
@@ -35,12 +34,12 @@ public class ChampionService {
         return gson.toJson(champions);
     }
 
-    public List<StaticChampion> loadChampions() {
+    public List<StaticChampionDD> loadChampions() {
 
         Map<Integer,no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion > championsDdragon=dDragonAPI.getChampions();
         List<no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion> list = new ArrayList<no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion>(championsDdragon.values());
 
-        List<StaticChampion> championsList= new ModelMapperConfig().mapAsList(list,StaticChampion.class);
+        List<StaticChampionDD> championsList= new ModelMapperConfig().mapAsList(list, StaticChampionDD.class);
         return championRepository.saveAll(championsList);
     }
 
@@ -50,11 +49,11 @@ public class ChampionService {
      * @return The champion asked by parameter
      */
     public String getChampion(Integer championId) {
-        StaticChampion champion= null;
-        Optional<StaticChampion> opChampion= championRepository.findById(championId);
+        StaticChampionDD champion= null;
+        Optional<StaticChampionDD> opChampion= championRepository.findById(championId);
         if(opChampion.isEmpty()){
             no.stelar7.api.r4j.pojo.lol.staticdata.champion.StaticChampion championD= dDragonAPI.getChampion(championId);
-            champion=modelMapper.map(championD,StaticChampion.class);
+            champion=modelMapper.map(championD, StaticChampionDD.class);
             championRepository.save(champion);
         }else{
             champion=opChampion.get();

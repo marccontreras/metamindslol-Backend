@@ -31,16 +31,16 @@ public class SummonerService {
      */
     public String getSummonerByName(String region, String summonerName) {
         Optional<LeagueShard> opShard = LeagueShard.fromString(region);
-        Summoner summonerDB=null;
+        SummonerDD summonerDD =null;
         no.stelar7.api.r4j.pojo.lol.summoner.Summoner summoner = null;
         if (opShard.isPresent()) {
-            summonerDB = summonerRepository.findByNameAndRegion(summonerName, opShard.get());
-            if (summonerDB == null) {
+            summonerDD = summonerRepository.findByNameAndRegion(summonerName, opShard.get());
+            if (summonerDD == null) {
                 summoner = baseAPI.getLoLAPI().getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
-               summonerDB= loadSummoner(summoner);
+               summonerDD = loadSummoner(summoner);
             }
         }
-        return gson.toJson(Objects.requireNonNullElse(summonerDB, new NotFoundException("Region").getMessage()));
+        return gson.toJson(Objects.requireNonNullElse(summonerDD, new NotFoundException("Region").getMessage()));
 
 
     }
@@ -62,9 +62,9 @@ public class SummonerService {
 
     }
     */
-    private Summoner loadSummoner(no.stelar7.api.r4j.pojo.lol.summoner.Summoner summoner) {
-        Summoner summonerDB = modelMapper.map(summoner, Summoner.class);
-        return summonerRepository.save(summonerDB);
+    private SummonerDD loadSummoner(no.stelar7.api.r4j.pojo.lol.summoner.Summoner summoner) {
+        SummonerDD summonerDDDB = modelMapper.map(summoner, SummonerDD.class);
+        return summonerRepository.save(summonerDDDB);
     }
 }
 

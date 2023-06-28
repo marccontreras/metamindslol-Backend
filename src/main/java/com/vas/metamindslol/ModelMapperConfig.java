@@ -1,6 +1,5 @@
 package com.vas.metamindslol;
 
-import com.vas.metamindslol.champion.StaticChampion;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

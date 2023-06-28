@@ -8,7 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
 
 @Entity
-public class Gold implements Serializable
+public class GoldDD implements Serializable
 {
     private static final long serialVersionUID = -7870414403107823868L;
     @Id
@@ -74,21 +74,21 @@ public class Gold implements Serializable
             return false;
         }
         
-        Gold gold = (Gold) o;
+        GoldDD goldDD = (GoldDD) o;
         
-        if (base != gold.base)
+        if (base != goldDD.base)
         {
             return false;
         }
-        if (purchasable != gold.purchasable)
+        if (purchasable != goldDD.purchasable)
         {
             return false;
         }
-        if (sell != gold.sell)
+        if (sell != goldDD.sell)
         {
             return false;
         }
-        return total == gold.total;
+        return total == goldDD.total;
     }
     
     @Override

@@ -8,7 +8,7 @@ import no.stelar7.api.r4j.pojo.lol.match.v5.TimelineParticipantFrame;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class TimelineFrame implements Serializable
+public class TimelineFrameDD implements Serializable
 {
     private static final long serialVersionUID = -7057434060412917705L;
 
@@ -19,7 +19,7 @@ public class TimelineFrame implements Serializable
     private long id;
 
     @OneToMany
-    private List<TimelineFrameEvent>              events;
+    private List<TimelineFrameEventDD>              events;
 
     //for the moment, there's no need to have the participant frame values(gold,stats...), in case it's needed to change
     // it, remove the transient property and add a model for TimelinePosition
@@ -36,7 +36,7 @@ public class TimelineFrame implements Serializable
         return serialVersionUID;
     }
 
-    public List<TimelineFrameEvent> getEvents()
+    public List<TimelineFrameEventDD> getEvents()
     {
         return events;
     }
@@ -62,7 +62,7 @@ public class TimelineFrame implements Serializable
         {
             return false;
         }
-        TimelineFrame that = (TimelineFrame) o;
+        TimelineFrameDD that = (TimelineFrameDD) o;
         return timestamp == that.timestamp && Objects.equals(events, that.events) && Objects.equals(participantFrames, that.participantFrames);
     }
     

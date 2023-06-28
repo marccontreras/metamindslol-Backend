@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
 import java.util.Objects;
 @Entity
-public class TimelineParticipantIdentity implements Serializable
+public class TimelineParticipantIdentityDD implements Serializable
 {
     private static final long serialVersionUID = -6722375304471308188L;
 
@@ -44,7 +44,7 @@ public class TimelineParticipantIdentity implements Serializable
         {
             return false;
         }
-        TimelineParticipantIdentity that = (TimelineParticipantIdentity) o;
+        TimelineParticipantIdentityDD that = (TimelineParticipantIdentityDD) o;
         return participantId == that.participantId && Objects.equals(puuid, that.puuid);
     }
 

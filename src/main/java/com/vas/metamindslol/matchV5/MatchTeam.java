@@ -18,20 +18,20 @@ public class MatchTeam implements Serializable
             name = "MatchTeam-sequence-generator")
     private long id;
     @OneToMany
-    private List<ChampionBan>           bans;
+    private List<ChampionBanDD>           bans;
     @OneToMany
     //might casue problems
-    private Map<String, ObjectiveStats> objectives;
+    private Map<String, ObjectiveStatsDD> objectives;
     @Enumerated(EnumType.STRING)
     private TeamType                    teamId;
     private boolean                     win;
     
-    public List<ChampionBan> getBans()
+    public List<ChampionBanDD> getBans()
     {
         return bans;
     }
     
-    public Map<String, ObjectiveStats> getObjectives()
+    public Map<String, ObjectiveStatsDD> getObjectives()
     {
         return objectives;
     }

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Data
 @Entity
-public final class Summoner implements Serializable
+public final class SummonerDD implements Serializable
 {
     private static final long serialVersionUID = 7941348691314302772L;
 
@@ -38,8 +38,8 @@ public final class Summoner implements Serializable
         {
             return false;
         }
-        Summoner summoner = (Summoner) o;
-        return profileIconId == summoner.profileIconId && summonerLevel == summoner.summonerLevel && revisionDate == summoner.revisionDate && Objects.equals(name, summoner.name) && Objects.equals(accountId, summoner.accountId) && Objects.equals(puuid, summoner.puuid) && Objects.equals(summonerId, summoner.summonerId) && platform == summoner.platform;
+        SummonerDD summonerDD = (SummonerDD) o;
+        return profileIconId == summonerDD.profileIconId && summonerLevel == summonerDD.summonerLevel && revisionDate == summonerDD.revisionDate && Objects.equals(name, summonerDD.name) && Objects.equals(accountId, summonerDD.accountId) && Objects.equals(puuid, summonerDD.puuid) && Objects.equals(summonerId, summonerDD.summonerId) && platform == summonerDD.platform;
     }
 
     @Override

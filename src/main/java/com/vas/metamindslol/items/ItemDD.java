@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.*;
 @Entity
 @Data
-public class Item implements Serializable
+public class ItemDD implements Serializable
 {
     private static final long serialVersionUID = 7919515074046086833L;
     @ElementCollection
@@ -25,7 +25,7 @@ public class Item implements Serializable
     @Column(name="itemFrom", length = 1000)
     private List<String>         from;
     @OneToOne
-    private Gold                 gold;
+    private GoldDD goldDD;
     @Column(name="itemGroup",length = 1000)
     private String               group;
     private boolean              hideFromAll;
@@ -47,7 +47,7 @@ public class Item implements Serializable
     private int                  specialRecipe;
     private int                  stacks;
     @OneToOne
-    private InventoryDataStats stats;
+    private InventoryDataStatsDD stats;
     @ElementCollection
     private List<String>         tags;
     
@@ -126,9 +126,9 @@ public class Item implements Serializable
      *
      * @return the gold
      */
-    public Gold getGold()
+    public GoldDD getGoldDD()
     {
-        return gold;
+        return goldDD;
     }
     
     /**
@@ -284,7 +284,7 @@ public class Item implements Serializable
      *
      * @return the stats
      */
-    public InventoryDataStats getStats()
+    public InventoryDataStatsDD getStats()
     {
         return stats;
     }
@@ -310,36 +310,36 @@ public class Item implements Serializable
         {
             return false;
         }
-        Item item = (Item) o;
-        return consumeOnFull == item.consumeOnFull &&
-               consumed == item.consumed &&
-               depth == item.depth &&
-               hideFromAll == item.hideFromAll &&
-               id == item.id &&
-               inStore == item.inStore &&
-               specialRecipe == item.specialRecipe &&
-               stacks == item.stacks &&
-               Objects.equals(effect, item.effect) &&
-               Objects.equals(colloq, item.colloq) &&
-               Objects.equals(description, item.description) &&
-               Objects.equals(from, item.from) &&
-               Objects.equals(gold, item.gold) &&
-               Objects.equals(group, item.group) &&
-               Objects.equals(image, item.image) &&
-               Objects.equals(into, item.into) &&
-               Objects.equals(maps, item.maps) &&
-               Objects.equals(name, item.name) &&
-               Objects.equals(plaintext, item.plaintext) &&
-               Objects.equals(requiredChampion, item.requiredChampion) &&
-               Objects.equals(rune, item.rune) &&
-               Objects.equals(stats, item.stats) &&
-               Objects.equals(tags, item.tags);
+        ItemDD itemDD = (ItemDD) o;
+        return consumeOnFull == itemDD.consumeOnFull &&
+               consumed == itemDD.consumed &&
+               depth == itemDD.depth &&
+               hideFromAll == itemDD.hideFromAll &&
+               id == itemDD.id &&
+               inStore == itemDD.inStore &&
+               specialRecipe == itemDD.specialRecipe &&
+               stacks == itemDD.stacks &&
+               Objects.equals(effect, itemDD.effect) &&
+               Objects.equals(colloq, itemDD.colloq) &&
+               Objects.equals(description, itemDD.description) &&
+               Objects.equals(from, itemDD.from) &&
+               Objects.equals(goldDD, itemDD.goldDD) &&
+               Objects.equals(group, itemDD.group) &&
+               Objects.equals(image, itemDD.image) &&
+               Objects.equals(into, itemDD.into) &&
+               Objects.equals(maps, itemDD.maps) &&
+               Objects.equals(name, itemDD.name) &&
+               Objects.equals(plaintext, itemDD.plaintext) &&
+               Objects.equals(requiredChampion, itemDD.requiredChampion) &&
+               Objects.equals(rune, itemDD.rune) &&
+               Objects.equals(stats, itemDD.stats) &&
+               Objects.equals(tags, itemDD.tags);
     }
     
     @Override
     public int hashCode()
     {
-        return Objects.hash(effect, colloq, consumeOnFull, consumed, depth, description, from, gold, group, hideFromAll, id, image, inStore, into, maps, name, plaintext, requiredChampion, rune, specialRecipe, stacks, stats, tags);
+        return Objects.hash(effect, colloq, consumeOnFull, consumed, depth, description, from, goldDD, group, hideFromAll, id, image, inStore, into, maps, name, plaintext, requiredChampion, rune, specialRecipe, stacks, stats, tags);
     }
     
     @Override
@@ -353,7 +353,7 @@ public class Item implements Serializable
                ", depth=" + depth +
                ", description='" + description + '\'' +
                ", from=" + from +
-               ", gold=" + gold +
+               ", gold=" + goldDD +
                ", group='" + group + '\'' +
                ", hideFromAll=" + hideFromAll +
                ", id=" + id +

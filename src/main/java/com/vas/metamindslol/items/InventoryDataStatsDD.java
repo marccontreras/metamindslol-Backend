@@ -8,7 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
 
 @Entity
-public class InventoryDataStats implements Serializable
+public class InventoryDataStatsDD implements Serializable
 {
     private static final long serialVersionUID = 420709117265668274L;
 
@@ -395,7 +395,7 @@ public class InventoryDataStats implements Serializable
             return false;
         }
         
-        InventoryDataStats that = (InventoryDataStats) o;
+        InventoryDataStatsDD that = (InventoryDataStatsDD) o;
         
         if (Float.compare(that.FlatArmorMod, FlatArmorMod) != 0)
         {

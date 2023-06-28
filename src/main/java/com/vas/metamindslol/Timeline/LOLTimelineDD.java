@@ -9,24 +9,24 @@ import java.util.*;
 
 @Entity
 @Data
-public class LOLTimeline implements Serializable
+public class LOLTimelineDD implements Serializable
 {
     private static final long serialVersionUID = -4143523364776512003L;
     
     private int                               frameInterval;
     @OneToMany
-    private List<TimelineFrame>               frames;
+    private List<TimelineFrameDD>               frames;
     @Id
     private long                              gameId;
     @OneToMany
-    private List<TimelineParticipantIdentity> participants;
+    private List<TimelineParticipantIdentityDD> participants;
     
     public int getFrameInterval()
     {
         return frameInterval;
     }
 
-    public List<TimelineFrame> getFrames()
+    public List<TimelineFrameDD> getFrames()
     {
         return frames;
     }
@@ -37,7 +37,7 @@ public class LOLTimeline implements Serializable
     }
 
 
-    public List<TimelineParticipantIdentity> getParticipants()
+    public List<TimelineParticipantIdentityDD> getParticipants()
     {
         return participants;
     }
@@ -53,7 +53,7 @@ public class LOLTimeline implements Serializable
         {
             return false;
         }
-        LOLTimeline that = (LOLTimeline) o;
+        LOLTimelineDD that = (LOLTimelineDD) o;
         return frameInterval == that.frameInterval && gameId == that.gameId && Objects.equals(frames, that.frames) && Objects.equals(participants, that.participants);
     }
     

@@ -10,7 +10,7 @@ import java.util.*;
 
 @Entity
 @Data
-public class StaticChampionSpell extends BaseSpellData
+public class StaticChampionSpellDD extends BaseSpellData
 {
     private static final long serialVersionUID = 3332883769496451613L;
 
@@ -40,7 +40,7 @@ public class StaticChampionSpell extends BaseSpellData
             return false;
         }
         
-        StaticChampionSpell that = (StaticChampionSpell) o;
+        StaticChampionSpellDD that = (StaticChampionSpellDD) o;
         
         return Objects.equals(altimages, that.altimages);
     }

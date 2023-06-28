@@ -2,9 +2,6 @@ package com.vas.metamindslol.items;
 
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
-import com.vas.metamindslol.champion.ChampionNameImage;
-import com.vas.metamindslol.champion.ChampionRepository;
-import com.vas.metamindslol.champion.StaticChampion;
 import no.stelar7.api.r4j.impl.lol.raw.DDragonAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +27,7 @@ public class ItemService {
 
     public String getItems() {
         List<ItemNameImage> items= new ArrayList<>();
-        List<Item>itemsDB= itemRepository.findAll();
+        List<ItemDD>itemsDB= itemRepository.findAll();
         if(itemsDB.isEmpty()) {
             itemsDB= loadItems();
         }
@@ -39,12 +36,12 @@ public class ItemService {
         return gson.toJson(items);
     }
 
-    public List<Item> loadItems() {
+    public List<ItemDD> loadItems() {
 
         Map<Integer, no.stelar7.api.r4j.pojo.lol.staticdata.item.Item> itemsDdragon=dDragonAPI.getItems();
         List<no.stelar7.api.r4j.pojo.lol.staticdata.item.Item> list = new ArrayList<>(itemsDdragon.values());
 
-        List<Item> itemsList= new ModelMapperConfig().mapAsList(list,Item.class);
+        List<ItemDD> itemsList= new ModelMapperConfig().mapAsList(list, ItemDD.class);
         return itemRepository.saveAll(itemsList);
     }
 
@@ -54,16 +51,16 @@ public class ItemService {
      * @return The item asked by parameter
      */
     public  String getItem(Integer itemId) {
-        Item item= null;
-        Optional<Item> opItem= itemRepository.findById(itemId);
+        ItemDD itemDD = null;
+        Optional<ItemDD> opItem= itemRepository.findById(itemId);
         if(opItem.isEmpty()){
             no.stelar7.api.r4j.pojo.lol.staticdata.item.Item itemD= dDragonAPI.getItem(itemId);
-            item=modelMapper.map(itemD,Item.class);
-            itemRepository.save(item);
+            itemDD =modelMapper.map(itemD, ItemDD.class);
+            itemRepository.save(itemDD);
         }else{
-            item=opItem.get();
+            itemDD =opItem.get();
         }
-        return gson.toJson(item);
+        return gson.toJson(itemDD);
     }
     //TODO: when there's the search-bar, be sure to pass the name and image of the champ(maybe even wr)
 }

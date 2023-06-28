@@ -8,7 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
 import java.util.Objects;
 @Entity
-public class ObjectiveStats implements Serializable
+public class ObjectiveStatsDD implements Serializable
 {
     private static final long serialVersionUID = -7533433019007054291L;
     @Id
@@ -40,7 +40,7 @@ public class ObjectiveStats implements Serializable
         {
             return false;
         }
-        ObjectiveStats that = (ObjectiveStats) o;
+        ObjectiveStatsDD that = (ObjectiveStatsDD) o;
         return first == that.first && kills == that.kills;
     }
     

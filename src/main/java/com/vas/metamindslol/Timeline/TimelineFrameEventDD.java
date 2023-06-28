@@ -15,7 +15,7 @@ import java.util.*;
 
 @Entity
 @Data
-public class TimelineFrameEvent implements Serializable {
+public class TimelineFrameEventDD implements Serializable {
     @Serial
     private static final long serialVersionUID = -653418574112361358L;
 
@@ -240,7 +240,7 @@ public class TimelineFrameEvent implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TimelineFrameEvent that = (TimelineFrameEvent) o;
+        TimelineFrameEventDD that = (TimelineFrameEventDD) o;
         return creatorId == that.creatorId && realTimestamp == that.realTimestamp && timestamp == that.timestamp && participantId == that.participantId && skillSlot == that.skillSlot && itemId == that.itemId && beforeId == that.beforeId && afterId == that.afterId && goldGain == that.goldGain && bounty == that.bounty && killStreakLength == that.killStreakLength && killerId == that.killerId && victimId == that.victimId && shutdownBounty == that.shutdownBounty && level == that.level && multiKillLength == that.multiKillLength && actualStartTime == that.actualStartTime && gameId == that.gameId && type == that.type && levelUpType == that.levelUpType && wardType == that.wardType && Objects.equals(position, that.position) && Objects.equals(victimDamageDealt, that.victimDamageDealt) && Objects.equals(victimDamageReceived, that.victimDamageReceived) && buildingType == that.buildingType && towerType == that.towerType && laneType == that.laneType && Objects.equals(assistingParticipantIds, that.assistingParticipantIds) && monsterType == that.monsterType && monsterSubType == that.monsterSubType && teamId == that.teamId && killerTeamId == that.killerTeamId && transformType == that.transformType && killType == that.killType && winningTeam == that.winningTeam;
     }
 

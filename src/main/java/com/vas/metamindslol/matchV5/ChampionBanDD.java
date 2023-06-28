@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class ChampionBan implements Serializable
+public class ChampionBanDD implements Serializable
 {
 
     private static final long serialVersionUID = 9036737379955122323L;
@@ -46,7 +46,7 @@ public class ChampionBan implements Serializable
         {
             return false;
         }
-        ChampionBan that = (ChampionBan) o;
+        ChampionBanDD that = (ChampionBanDD) o;
         return championId == that.championId && pickTurn == that.pickTurn;
     }
     

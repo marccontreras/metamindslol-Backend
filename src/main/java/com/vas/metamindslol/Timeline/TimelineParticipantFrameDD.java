@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Data
-public class TimelineParticipantFrame implements Serializable {
+public class TimelineParticipantFrameDD implements Serializable {
 
     @Id
     @GeneratedValue(generator = "timelineParticipantFrame-sequence-generator")
@@ -101,7 +101,7 @@ public class TimelineParticipantFrame implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TimelineParticipantFrame that = (TimelineParticipantFrame) o;
+        TimelineParticipantFrameDD that = (TimelineParticipantFrameDD) o;
         return currentGold == that.currentGold && goldPerSecond == that.goldPerSecond && jungleMinionsKilled == that.jungleMinionsKilled && level == that.level && minionsKilled == that.minionsKilled && participantId == that.participantId && timeEnemySpentControlled == that.timeEnemySpentControlled && totalGold == that.totalGold && xp == that.xp && Objects.equals(championStats, that.championStats) && Objects.equals(damageStats, that.damageStats) && Objects.equals(position, that.position);
     }
 
