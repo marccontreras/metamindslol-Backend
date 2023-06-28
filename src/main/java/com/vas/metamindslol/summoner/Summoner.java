@@ -1,10 +1,7 @@
 
 package com.vas.metamindslol.summoner;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 
@@ -23,7 +20,7 @@ public final class Summoner implements Serializable
     private String      accountId;
     private String      puuid;
     @Id
-    private String      id;
+    private String summonerId;
     private long        revisionDate;
     @Enumerated(EnumType.STRING)
     //@Type(LeagueShard.class )
@@ -42,13 +39,13 @@ public final class Summoner implements Serializable
             return false;
         }
         Summoner summoner = (Summoner) o;
-        return profileIconId == summoner.profileIconId && summonerLevel == summoner.summonerLevel && revisionDate == summoner.revisionDate && Objects.equals(name, summoner.name) && Objects.equals(accountId, summoner.accountId) && Objects.equals(puuid, summoner.puuid) && Objects.equals(id, summoner.id) && platform == summoner.platform;
+        return profileIconId == summoner.profileIconId && summonerLevel == summoner.summonerLevel && revisionDate == summoner.revisionDate && Objects.equals(name, summoner.name) && Objects.equals(accountId, summoner.accountId) && Objects.equals(puuid, summoner.puuid) && Objects.equals(summonerId, summoner.summonerId) && platform == summoner.platform;
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(profileIconId, name, summonerLevel, accountId, puuid, id, revisionDate, platform);
+        return Objects.hash(profileIconId, name, summonerLevel, accountId, puuid, summonerId, revisionDate, platform);
     }
 
     @Override
@@ -60,7 +57,7 @@ public final class Summoner implements Serializable
                 ", summonerLevel=" + summonerLevel +
                 ", accountId='" + accountId + '\'' +
                 ", puuid='" + puuid + '\'' +
-                ", id='" + id + '\'' +
+                ", id='" + summonerId + '\'' +
                 ", revisionDate=" + revisionDate +
                 ", platform=" + platform +
                 '}';

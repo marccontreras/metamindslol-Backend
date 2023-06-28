@@ -1,7 +1,6 @@
-package enums;
+package com.vas.metamindslol.enums;
 
 import com.google.gson.JsonPrimitive;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import no.stelar7.api.r4j.basic.constants.api.regions.RegionShard;
 import no.stelar7.api.r4j.basic.constants.types.*;
@@ -10,7 +9,6 @@ import no.stelar7.api.r4j.basic.exceptions.APIEnumNotUpToDateException;
 import java.util.*;
 import java.util.stream.Stream;
 
-@Entity
 public enum LeagueShard implements CodedEnum, RealmSpesificEnum
 {
 
