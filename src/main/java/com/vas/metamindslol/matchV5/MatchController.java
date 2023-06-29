@@ -16,18 +16,18 @@ public class MatchController {
 //TODO: SERIALIZE FROM STRING TO LEAGUESHARD, AND MAKE THE GSON SUMMONER CALLS IN THE SERVICE
     @GetMapping(value = "/match/{region}/recentMatch/summoner/{summonerName}")
     public String getMostRecentMatchBySummonerName(@PathVariable String region,@PathVariable String summonerName){
-        return service.getMostRecentMatchBySummonerName(region,summonerName);
+        return service.loadMostRecentMatchBySummonerName(region,summonerName);
     }
 
     //try it
     @GetMapping(value = "/match/{region}/recentMatch/{summoner}")
     public String getMostRecentMatchBySummoner(@PathVariable String region,@PathVariable String summoner){
-        return service.getMostRecentMatchBySummoner(region,gson.fromJson(summoner,Summoner.class));
+        return service.loadMostRecentMatchBySummoner(region,gson.fromJson(summoner,Summoner.class));
     }
 
     @GetMapping(value = "/match/{region}/{summoner}/{matchNumber}")
     public String getMatchBySummoner(@PathVariable String region,@PathVariable String summoner,@PathVariable Integer matchNumber){
-        return service.getMatchBySummoner(region, gson.fromJson(summoner,Summoner.class),matchNumber);
+        return service.loadMatchBySummoner(region, gson.fromJson(summoner,Summoner.class),matchNumber);
     }
 
 }

@@ -31,13 +31,15 @@ public class LOLMatchDD implements Serializable
     private String                 gameVersion;
     @Enumerated(EnumType.STRING)
     private MapType                mapId;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
     private List<MatchParticipantDD> participants;
     @Enumerated(EnumType.STRING)
     private LeagueShard            platformId;
     @Enumerated(EnumType.STRING)
     private GameQueueType          queueId;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
     private List<MatchTeamDD>        teams;
     private String                 tournamentCode;
     

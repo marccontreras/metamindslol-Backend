@@ -1,6 +1,7 @@
 package com.vas.metamindslol.matchV5;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import no.stelar7.api.r4j.basic.constants.types.lol.*;
 import no.stelar7.api.r4j.pojo.lol.match.v5.MatchPerks;
 import org.hibernate.annotations.GenericGenerator;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
+@Data
 public class MatchParticipantDD implements Serializable {
     private static final long serialVersionUID = 921950638612403583L;
 

@@ -1,6 +1,7 @@
 package com.vas.metamindslol.matchV5;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import no.stelar7.api.r4j.basic.constants.types.lol.TeamType;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -8,6 +9,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
+@Data
 public class MatchTeamDD implements Serializable
 {
     private static final long serialVersionUID = 2387712867150164023L;
@@ -17,9 +19,12 @@ public class MatchTeamDD implements Serializable
     @GenericGenerator(
             name = "MatchTeam-sequence-generator")
     private long id;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
     private List<ChampionBanDD>           bans;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
+    @MapKey(name="objId")
     //might casue problems
     private Map<String, ObjectiveStatsDD> objectives;
     @Enumerated(EnumType.STRING)

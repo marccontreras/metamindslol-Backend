@@ -24,16 +24,16 @@ public class MatchServiceTest {
     @Test
     public void testgetMatch() {
 
-        Assertions.assertNotNull(service.getMatchBySummoner(region, summoner, 1));
+        Assertions.assertNotNull(service.loadMatchBySummoner(region, summoner, 1));
     }
 
     @Test
     public void testgetMostRecentMatch() {
-        Assert.assertNotEquals(new NotFoundException().getMessage(), service.getMostRecentMatchBySummoner(region, summoner));
+        Assert.assertNotEquals(new NotFoundException().getMessage(), service.loadMostRecentMatchBySummoner(region, summoner));
     }
 
     @Test
     public void testgetMostRecentMatchByName() {
-        Assert.assertNotEquals(new NotFoundException().getMessage(), service.getMostRecentMatchBySummonerName(region, name));
+        Assert.assertNotEquals(new NotFoundException().getMessage(), service.loadMostRecentMatchBySummonerName(region, name));
     }
 }

@@ -4,15 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Range;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Data
 public class ChampionBanDD implements Serializable
 {
 
+    @Serial
     private static final long serialVersionUID = 9036737379955122323L;
     //there will be a total of number of champions x10(pickTurn)
 
@@ -22,7 +27,7 @@ public class ChampionBanDD implements Serializable
             name = "ChampionBan-sequence-generator")
     private long id;
     private int championId;
-    @Size(min =0, max =10)
+    @Range(min =0, max =10)
     private int pickTurn;
     
     public int getChampionId()

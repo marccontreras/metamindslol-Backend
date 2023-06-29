@@ -3,19 +3,23 @@ package com.vas.metamindslol.matchV5;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 @Entity
+@Data
 public class ObjectiveStatsDD implements Serializable
 {
+    @Serial
     private static final long serialVersionUID = -7533433019007054291L;
     @Id
     @GeneratedValue(generator = "ObjectiveStats-sequence-generator")
     @GenericGenerator(
-            name = "ObjectiveStats-sequence-generator")
-    private long id;
+            name = "ObjectiveStats-sequence-generator",strategy = "uuid")
+    private String objId;
     private boolean first;
     private int     kills;
     
