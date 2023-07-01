@@ -18,6 +18,10 @@ public class MatchController {
     public String getMostRecentMatchBySummonerName(@PathVariable String region,@PathVariable String summonerName){
         return service.loadMostRecentMatchBySummonerName(region,summonerName);
     }
+    @GetMapping(value = "/match/{region}/summoner/{summonerName}")
+    public String getMatchesBySummonerName(@PathVariable String region,@PathVariable String summonerName){
+        return service.getMatchesBySummonerName(region,summonerName);
+    }
 
     //try it
     @GetMapping(value = "/match/{region}/recentMatch/{summoner}")

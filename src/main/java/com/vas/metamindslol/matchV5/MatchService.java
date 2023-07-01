@@ -23,7 +23,7 @@ public class MatchService {
 
     @Autowired
     MatchRepository matchRepository;
-
+//LOADING RECENT GAME INTO DB
     /**
      * @param region
      * @param summonerName
@@ -45,6 +45,47 @@ public class MatchService {
 
     }
 
+    /**
+     * returns all the loaded summoner names in the db given its name
+     * @param region
+     * @param summonerName
+     * @return The match mapped to matchDB
+     */
+    public String getMatchesBySummonerName(String region, String summonerName) {
+        Optional<LeagueShard> opShard = LeagueShard.fromString(region);
+        List<LOLMatchDD>matchesDB=null;
+        if (opShard.isPresent()) {
+            //make a method that finds by matchParticipant, summonerName(maybe puuid)
+            matchesDB=matchRepository.getMatchesBySummonerName(summonerName);
+        }
+        return gson.toJson(Objects.requireNonNullElse(matchesDB, new NotFoundException().getMessage()));
+
+    }
+
+
+
+
+    //NEEDED A GET
+    // AND A LOAD UNTIL THE MOST RECENT IN DB
+
+
+    /**
+     * @implNote if the match is not on DB it's added
+     * @param match
+     * @return The match mapped to matchDB
+     */
+    private LOLMatchDD findOrSaveMatch(LOLMatch match) {
+        LOLMatchDD matchDD;
+        Optional<LOLMatchDD> opMatch = matchRepository.findById(match.getGameId());
+        matchDD = modelMapper.map(match, LOLMatchDD.class);
+        if (opMatch.isEmpty())
+            matchDD= matchRepository.save(matchDD);
+        return matchDD;
+    }
+
+
+
+//LOADING BY SUMMONER FOR NOW WON'T BE USED
     /**
      * @param region
      * @param summoner
@@ -83,54 +124,7 @@ public class MatchService {
     }
 
 
-    /**
-     * @param region
-     * @param summonerName
-     * @return The most recent match of the given summoner if it exists
-     */
-    public String loadMostRecentMatchBySummonerName(String region, String summonerName, Integer count) {
 
-        Optional<LeagueShard> opShard = LeagueShard.fromString(region);
-        Summoner summoner;
-        LOLMatch match = null;
-        if (opShard.isPresent()) {
-            summoner = R4JInstance.loLAPI.getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
-            List<String> matches = summoner.getLeagueGames().get();
-            match = LOLMatch.get(opShard.get(), matches.get(count));
-        }
-        return gson.toJson(Objects.requireNonNullElse(match, new NotFoundException().getMessage()));
-
-    }
-    /**
-     * @implNote if the match is not on DB it's added
-     * @param match
-     * @return The match mapped to matchDB
-     */
-    private LOLMatchDD findOrSaveMatch(LOLMatch match) {
-        LOLMatchDD matchDD;
-        Optional<LOLMatchDD> opMatch = matchRepository.findById(match.getGameId());
-        matchDD = modelMapper.map(match, LOLMatchDD.class);
-        if (opMatch.isEmpty())
-            matchRepository.save(matchDD);
-        return matchDD;
-    }
-
-
-
-        /*
-    public String loadNewMatchesBySummonerName(String region, String summonerName){
-    Optional<LeagueShard> opShard = LeagueShard.fromString(region);
-    Summoner summoner;
-    LOLMatch match=null;
-        if (opShard.isPresent()) {
-        //summoner = R4JInstance.loLAPI.getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
-        List<String> matches = summoner.getLeagueGames().get();
-        match = LOLMatch.get(opShard.get(), matches.get(0));
-    }
-        return gson.toJson(Objects.requireNonNullElse(match, new NotFoundException().getMessage()));
-
-}
-*/
 
 
 }

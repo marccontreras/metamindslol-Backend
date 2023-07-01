@@ -64,8 +64,8 @@ public class SummonerService {
     }
     */
     private SummonerDD loadSummoner(Summoner summoner) {
-        SummonerDD summonerDDDB = modelMapper.map(summoner, SummonerDD.class);
-        return summonerRepository.save(summonerDDDB);
+        SummonerDD summonerDD = modelMapper.map(summoner, SummonerDD.class);
+        return summonerRepository.save(summonerDD);
     }
 }
 

@@ -5,6 +5,8 @@ import lombok.Data;
 import no.stelar7.api.r4j.basic.constants.types.lol.*;
 import no.stelar7.api.r4j.pojo.lol.match.v5.MatchPerks;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 import java.util.*;
@@ -22,7 +24,8 @@ public class MatchParticipantDD implements Serializable {
     private int assists;
     private int baronKills;
     private int bountyLevel;
-    @Transient
+    @Convert(converter = ChallengesConverter.class)
+    @Column(length =65000)
     private Map<String, Object> challenges;
     private int champExperience;
     private int champLevel;
