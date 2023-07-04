@@ -24,22 +24,20 @@ public class TimelineFrameEventDD implements Serializable {
     @GenericGenerator(
             name = "timelineFrameEvent-sequence-generator")
     private long id;
-    //@ManyToOne
-    //private LOLTimeline TimeLine;
+
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
 
     @Enumerated(EnumType.STRING)
-
     private EventType type;
-    @Enumerated(EnumType.STRING)
 
+    @Enumerated(EnumType.STRING)
     private KillType killType;
-    @Enumerated(EnumType.STRING)
 
+    @Enumerated(EnumType.STRING)
     private LaneType laneType;
-    @Enumerated(EnumType.STRING)
 
+    @Enumerated(EnumType.STRING)
     private LevelUpType levelUpType;
     //look up how to change it in the future
     @ElementCollection

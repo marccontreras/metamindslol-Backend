@@ -57,6 +57,7 @@ public class MetamindslolApplication {
         //most recent game
         List<String> matches = summoner.getLeagueGames().get();
         LOLMatch match = LOLMatch.get(region, matches.get(0));
+        String matchId= matches.get(0);
         MatchParticipant self = match.getParticipants().stream().filter(p -> p.getPuuid().equals(summoner.getPUUID())).findFirst().get();
         StaticChampion champion = champData.get(self.getChampionId());
         MatchPerks summs = self.getPerks();

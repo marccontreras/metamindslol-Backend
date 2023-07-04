@@ -34,6 +34,6 @@ public class MatchServiceTest {
 
     @Test
     public void testgetMostRecentMatchByName() {
-        Assert.assertNotEquals(new NotFoundException().getMessage(), service.loadMostRecentMatchBySummonerName(region, name));
+        Assert.assertNotEquals(new NotFoundException().getMessage(), service.loadMatchBySummonerName(region, name,null));
     }
 }
