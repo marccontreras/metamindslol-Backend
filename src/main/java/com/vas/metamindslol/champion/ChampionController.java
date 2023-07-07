@@ -25,6 +25,12 @@ public class ChampionController {
         return service.getChampion(championId);
     }
 
+    @GetMapping(value = "/champions/champion/{championName}")
+    public String getChampion(@PathVariable String championName){
+        return service.getChampion(championName);
+    }
+
+
     //default test crida
     @GetMapping(value = "/")
     public String getIt(){
