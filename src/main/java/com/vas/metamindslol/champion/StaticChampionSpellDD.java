@@ -1,10 +1,8 @@
 package com.vas.metamindslol.champion;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.vas.metamindslol.image.Image;
+import jakarta.persistence.*;
 import lombok.Data;
-import no.stelar7.api.r4j.pojo.lol.staticdata.shared.Image;
 
 import java.util.*;
 
@@ -14,7 +12,8 @@ public class StaticChampionSpellDD extends BaseSpellData
 {
     private static final long serialVersionUID = 3332883769496451613L;
 
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
     private List<Image> altimages;
 
     @Id

@@ -24,7 +24,7 @@ public class ItemDD implements Serializable
     @ElementCollection
     @Column(name="itemFrom", length = 1000)
     private List<String>         from;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private GoldDD goldDD;
     @Column(name="itemGroup",length = 1000)
     private String               group;
@@ -46,7 +46,7 @@ public class ItemDD implements Serializable
     private MetaData rune;
     private int                  specialRecipe;
     private int                  stacks;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private InventoryDataStatsDD stats;
     @ElementCollection
     private List<String>         tags;

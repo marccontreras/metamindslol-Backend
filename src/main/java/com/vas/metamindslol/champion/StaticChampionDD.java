@@ -1,9 +1,9 @@
 package com.vas.metamindslol.champion;
 
+import com.vas.metamindslol.image.Image;
 import jakarta.persistence.*;
 import lombok.Data;
 import no.stelar7.api.r4j.pojo.lol.staticdata.champion.*;
-import no.stelar7.api.r4j.pojo.lol.staticdata.shared.Image;
 
 import java.io.Serializable;
 import java.util.*;
@@ -22,6 +22,7 @@ public class StaticChampionDD implements Serializable {
     private List<String> enemytips;
     @Id
     private int id;
+    @OneToOne (cascade = CascadeType.ALL)
     private Image image;
     private Info info;
     @Column(length=100)
@@ -32,7 +33,7 @@ public class StaticChampionDD implements Serializable {
     private String name;
     @Column(length=1000)
     private String partype;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private PassiveDD passive;
     //mirar en el futur si els he de crear jo aquestes dades o si es poden extreure de veritat d'aquest element
     private transient List<Recommended> recommended;
