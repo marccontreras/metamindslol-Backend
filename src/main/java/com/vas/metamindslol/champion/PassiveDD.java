@@ -5,15 +5,17 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import lombok.Data;
 
 import java.io.Serializable;
 @Entity
+@Data
 public class PassiveDD implements Serializable
 {
     private static final long serialVersionUID = -1431514724519691319L;
     
     private String description;
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne
     private Image image;
     @Id
     private String name;
