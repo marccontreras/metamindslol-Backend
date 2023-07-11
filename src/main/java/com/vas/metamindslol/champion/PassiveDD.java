@@ -1,10 +1,7 @@
 package com.vas.metamindslol.champion;
 
 import com.vas.metamindslol.image.Image;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,9 +10,10 @@ import java.io.Serializable;
 public class PassiveDD implements Serializable
 {
     private static final long serialVersionUID = -1431514724519691319L;
-    
+
+    @Column(length=10000)
     private String description;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private Image image;
     @Id
     private String name;
