@@ -136,8 +136,8 @@ public class MatchService {
         List<LOLMatchDD> matchesDB = new ArrayList<>();
         LOLMatchDD matchTemp=null;
         int count = 0;
-        // deal with the start
-        int maxGamesAllowed=1000;
+        // deal with the start for now will show only a page which is 100
+        int maxGamesAllowed=100;
         boolean found = false;
 
         while (!found && count<maxGamesAllowed) {
