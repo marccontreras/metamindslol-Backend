@@ -32,7 +32,7 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'com.github.stelar7:R4J:2.2.11'
+	implementation 'com.github.stelar7:R4J:2.2.20'
 	implementation 'com.google.code.gson:gson'
 	runtimeOnly 'org.postgresql:postgresql:42.2.27'
 // https://mvnrepository.com/artifact/org.modelmapper/modelmapper

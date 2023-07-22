@@ -13,8 +13,12 @@ public class SummonerController {
 
     @GetMapping(value = "/summoners/{region}/{summonerName}")
     public String getSummonerByName(@PathVariable String region,@PathVariable String summonerName){
-        return service.getSummonerByName(region,summonerName);
+        return service.getSummonerByNameAndRegion(region,summonerName);
     }
 
+    @GetMapping(value = "/summoners/search/{summoners}")
+    public String getSummonerByName(@PathVariable String summoners){
+        return service.getSummonerByName(summoners);
+    }
 
 }
