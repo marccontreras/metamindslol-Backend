@@ -7,6 +7,7 @@ import com.vas.metamindslol.exception.NotFoundException;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 import no.stelar7.api.r4j.impl.lol.builders.matchv5.match.MatchListBuilder;
 import no.stelar7.api.r4j.pojo.lol.match.v5.LOLMatch;
+import no.stelar7.api.r4j.pojo.lol.match.v5.MatchParticipant;
 import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -153,9 +154,9 @@ public class MatchService {
         while (!found && count < maxGamesAllowed) {
             matchString = loadMatchBySummonerName(region, summonerName, maxGamesAllowed, count);
             if (!matchString.equals(gson.toJson(new NotFoundException().getMessage(), String.class))) {
-                if(!matchString.equals(SPECIAL_GAME_MODE)) {
+                if (!matchString.equals(SPECIAL_GAME_MODE)) {
                     matchTemp = gson.fromJson(matchString, LOLMatchDD.class);
-                    timelineService.loadTimelineByGameId(region, matchTemp.getGameId());
+                    //timelineService.loadTimelineByGameId(region, matchTemp.getGameId());
                     if (matchTemp.getGameId() == matchId)
                         found = true;
                     matchesDB.add(matchTemp);
@@ -181,6 +182,8 @@ public class MatchService {
         LOLMatchDD matchDD;
         Optional<LOLMatchDD> opMatch = matchRepository.findById(match.getGameId());
         matchDD = modelMapper.map(match, LOLMatchDD.class);
+        List<MatchParticipantDD> participantsDD = matchDD.getParticipants();
+        List<MatchParticipant> participants = match.getParticipants();
         if (opMatch.isEmpty())
             matchDD = matchRepository.save(matchDD);
         return matchDD;
