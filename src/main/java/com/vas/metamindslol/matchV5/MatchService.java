@@ -5,9 +5,10 @@ import com.vas.metamindslol.R4JInstance;
 import com.vas.metamindslol.Timeline.TimelineService;
 import com.vas.metamindslol.exception.NotFoundException;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
+import no.stelar7.api.r4j.basic.constants.types.lol.SummonerSpellType;
 import no.stelar7.api.r4j.impl.lol.builders.matchv5.match.MatchListBuilder;
 import no.stelar7.api.r4j.pojo.lol.match.v5.LOLMatch;
-import no.stelar7.api.r4j.pojo.lol.match.v5.MatchParticipant;
+import no.stelar7.api.r4j.pojo.lol.match.v5.MatchTeam;
 import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,7 +133,10 @@ public class MatchService {
      * @param summonerName
      * @return The new matches
      */
-    public String loadUntilFoundMatchBySummonerName(String region, String summonerName) {
+    public String loadUntilFoundMatchBySummonerName(String region, String summonerName,Integer gamesToFind) {
+        //can search up to 100 per page, up to a maximum of 1000, for now only the first 100 will be able to be listed
+        if(gamesToFind==null|| gamesToFind>100)
+            gamesToFind=20;
         LOLMatchDD match;
         long matchId = 0;
 
@@ -146,13 +150,11 @@ public class MatchService {
         List<LOLMatchDD> matchesDB = new ArrayList<>();
         LOLMatchDD matchTemp = null;
         int count = 0;
-        // deal with the start for now will show only a page which is 100
-        int maxGamesAllowed = 100;
         boolean found = false;
         String exc = new NotFoundException().getMessage();
         String notFound = gson.toJson(exc, String.class);
-        while (!found && count < maxGamesAllowed) {
-            matchString = loadMatchBySummonerName(region, summonerName, maxGamesAllowed, count);
+        while (!found && count < gamesToFind) {
+            matchString = loadMatchBySummonerName(region, summonerName, gamesToFind, count);
             if (!matchString.equals(gson.toJson(new NotFoundException().getMessage(), String.class))) {
                 if (!matchString.equals(SPECIAL_GAME_MODE)) {
                     matchTemp = gson.fromJson(matchString, LOLMatchDD.class);
@@ -182,8 +184,18 @@ public class MatchService {
         LOLMatchDD matchDD;
         Optional<LOLMatchDD> opMatch = matchRepository.findById(match.getGameId());
         matchDD = modelMapper.map(match, LOLMatchDD.class);
-        List<MatchParticipantDD> participantsDD = matchDD.getParticipants();
-        List<MatchParticipant> participants = match.getParticipants();
+        List<MatchTeamDD> teamsDD = matchDD.getTeams();
+        List<MatchTeam> teams = match.getTeams();
+        for (int i = 0; i < teams.size(); i++) {
+            teamsDD.get(i).setWin(teams.get(i).didWin());
+        }
+        List<MatchParticipantDD>participants = matchDD.getParticipants();
+        SummonerSpellType spellType = SummonerSpellType.AUTO_SMITE;
+        for(MatchParticipantDD participantDD :participants){
+            participantDD.setSummonerSpell1(spellType.getFromCode(String.valueOf(participantDD.getSummoner1Id())).get().getApiName());
+            participantDD.setSummonerSpell2(spellType.getFromCode(String.valueOf(participantDD.getSummoner2Id())).get().getApiName());
+
+        }
         if (opMatch.isEmpty())
             matchDD = matchRepository.save(matchDD);
         return matchDD;
@@ -220,7 +232,7 @@ public class MatchService {
      * @param summoner
      * @return A match of the given summoner
      */
-    public String loadMatchBySummoner(String region, Summoner summoner, Integer matchNumber) {
+    public String getMatchBySummoner(String region, Summoner summoner, Integer matchNumber) {
         //limited to the last 20 for the moment, afterwards look if there's another way to get more
         List<String> matches = summoner.getLeagueGames().get();
         LOLMatch match = null;

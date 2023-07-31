@@ -22,7 +22,7 @@ public class MatchController {
 
     @GetMapping(value = "/match/{region}/matches/summoner/{summonerName}")
     public String loadUntilFoundMatchBySummonerName(@PathVariable String region, @PathVariable String summonerName){
-        return service.loadUntilFoundMatchBySummonerName(region,summonerName);
+        return service.loadUntilFoundMatchBySummonerName(region,summonerName,null);
     }
     //fi dels metodes put
     @GetMapping(value = "/match/{region}/getRecentMatch/{summonerName}")
@@ -36,7 +36,7 @@ public class MatchController {
 
     @GetMapping(value = "/match/{region}/{summoner}/{matchNumber}")
     public String getMatchBySummoner(@PathVariable String region,@PathVariable String summoner,@PathVariable Integer matchNumber){
-        return service.loadMatchBySummoner(region, gson.fromJson(summoner,Summoner.class),matchNumber);
+        return service.getMatchBySummoner(region, gson.fromJson(summoner,Summoner.class),matchNumber);
     }
 
     //works if a summoner is given

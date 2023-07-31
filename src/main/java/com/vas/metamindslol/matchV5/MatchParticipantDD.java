@@ -135,6 +135,8 @@ public class MatchParticipantDD implements Serializable {
     private int wardsKilled;
     private int wardsPlaced;
     private boolean win;
+    private String summonerSpell1;
+    private String summonerSpell2;
 
     public int getAssists() {
         return assists;
@@ -655,6 +657,8 @@ public class MatchParticipantDD implements Serializable {
                 ", spell4Casts=" + spell4Casts +
                 ", summoner1Casts=" + summoner1Casts +
                 ", summoner2Casts=" + summoner2Casts +
+                ", summonerSpell1=" + summonerSpell1 +
+                ", summonerSpell2=" + summonerSpell2 +
                 ", summonerId='" + summonerId + '\'' +
                 ", summonerLevel=" + summonerLevel +
                 ", summonerName='" + summonerName + '\'' +
