@@ -13,7 +13,11 @@ public class TimelineController {
 
 
     @GetMapping(value = "/timeline/{region}/{gameId}")
-    public String getSummonerByName(@PathVariable String region,@PathVariable Long gameId){
-        return service.loadTimelineByGameId(region,gameId);
+    public String getTimelineByGameId(@PathVariable String region,@PathVariable Long gameId){
+        return service.getTimelineByGameId(region,gameId);
+    }
+    @GetMapping(value = "/timeline/{region}/{gameId}/kills")
+    public String getTimelineKills(@PathVariable String region,@PathVariable Long gameId){
+        return service.getTimelineKills(region,gameId);
     }
 }

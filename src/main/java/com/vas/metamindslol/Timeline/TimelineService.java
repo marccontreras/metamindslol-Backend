@@ -3,12 +3,14 @@ package com.vas.metamindslol.Timeline;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.exception.NotFoundException;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
+import no.stelar7.api.r4j.basic.constants.types.lol.EventType;
 import no.stelar7.api.r4j.impl.lol.raw.MatchV5API;
 import no.stelar7.api.r4j.pojo.lol.match.v5.LOLTimeline;
 import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -22,7 +24,6 @@ public class TimelineService {
 
     @Autowired
     TimelineRepository timelineRepository;
-//LOADING RECENT GAME INTO DB
 
     /**
      * @param region
@@ -47,13 +48,13 @@ public class TimelineService {
 
 
     /**
-     * returns the most recent timeline loaded in the db given its summoner name
+     * returns the timeline loaded in the db given its gameId
      *
      * @param region
      * @param gameId
      * @return The timeline mapped to timelineDB
      */
-    public String getMostRecenttimelineByGameId(String region, Long gameId) {
+    public String getTimelineByGameId(String region, Long gameId) {
         Optional<LeagueShard> opShard = LeagueShard.fromString(region);
         LOLTimelineDD timelineDB = null;
         if (opShard.isPresent()) {
@@ -63,6 +64,22 @@ public class TimelineService {
 
     }
 
+    /**
+     * returns the timeline kills given its gameId
+     *
+     * @param region
+     * @param gameId
+     * @return The timeline mapped to timelineDB
+     */
+    public String getTimelineKills(String region, Long gameId) {
+        Optional<LeagueShard> opShard = LeagueShard.fromString(region);
+        List<TimelineFrameEventDD> eventsDB = null;
+        if (opShard.isPresent()) {
+            eventsDB = timelineRepository.findByGameAndEventType(gameId, EventType.CHAMPION_KILL);
+        }
+        return gson.toJson(Objects.requireNonNullElse(eventsDB, new NotFoundException().getMessage()));
+
+    }
 
 
     /**
