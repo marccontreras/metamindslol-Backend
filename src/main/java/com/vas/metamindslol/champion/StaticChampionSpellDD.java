@@ -25,7 +25,11 @@ public class StaticChampionSpellDD //extends BaseSpellData
     {
         return altimages;
     }
-    
+
+    //comes from the parent class
+    @Column(length=10000)
+    private String             description;
+
     @Override
     public boolean equals(Object o)
     {
