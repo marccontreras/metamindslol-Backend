@@ -12,9 +12,6 @@ public  class R4JInstance {
     static APICredentials creds = new APICredentials(apiKey);
     public static final R4J baseAPI = new R4J(creds);
     public static final DDragonAPI dDragonAPI = baseAPI.getDDragonAPI();
-
-    public static final ImageAPI imageAPI  = baseAPI.getImageAPI();
-
     public static final R4J.LOLAPI loLAPI = baseAPI.getLoLAPI();
 
 

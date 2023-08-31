@@ -2,7 +2,6 @@ package com.vas.metamindslol.matchV5;
 
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
-import com.vas.metamindslol.Timeline.TimelineService;
 import com.vas.metamindslol.exception.NotFoundException;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 import no.stelar7.api.r4j.basic.constants.types.lol.SummonerSpellType;
@@ -29,44 +28,14 @@ public class MatchService {
     @Autowired
     MatchRepository matchRepository;
 
-    @Autowired
-    TimelineService timelineService;
-
     public final String SPECIAL_GAME_MODE = "EVENT GAME MODE";
 
-
-//LOADING RECENT GAME INTO DB
-
     /**
      * @param region
      * @param summonerName
      * @return The most recent match of the given summoner if it exists
      */
-    public String loadMatchBySummonerName(String region, String summonerName) {
-
-        Optional<LeagueShard> opShard = LeagueShard.fromString(region);
-        Summoner summoner;
-        LOLMatch match = null;
-        LOLMatchDD matchDD = null;
-        if (opShard.isPresent()) {
-            summoner = R4JInstance.loLAPI.getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
-            List<String> matches = summoner.getLeagueGames().get();
-            match = LOLMatch.get(opShard.get(), matches.get(0));
-            if (match.getParticipants().size() == 10)
-                matchDD = findOrSaveMatch(match);
-            else
-                return SPECIAL_GAME_MODE;
-        }
-        return gson.toJson(Objects.requireNonNullElse(matchDD, new NotFoundException().getMessage()));
-
-    }
-
-    /**
-     * @param region
-     * @param summonerName
-     * @return The most recent match of the given summoner if it exists
-     */
-    public String loadMatchBySummonerName(String region, String summonerName, Integer count, Integer gameNumber) {
+    private String loadMatchBySummonerName(String region, String summonerName, Integer count, Integer gameNumber) {
         if (count == null) {
             count = 20;
             gameNumber = 0;
@@ -82,7 +51,6 @@ public class MatchService {
             match = LOLMatch.get(opShard.get(), matches.get(gameNumber));
             if (match.getParticipants().size() == 10) {
                 matchDD = findOrSaveMatch(match);
-                timelineService.loadTimelineByGameId(region, matchDD.getGameId());
             } else
                 return SPECIAL_GAME_MODE;
         }
@@ -115,7 +83,7 @@ public class MatchService {
      * @param summonerName
      * @return The match mapped to matchDB
      */
-    public String getMostRecentMatchBySummonerName(String region, String summonerName) {
+    private String getMostRecentMatchBySummonerName(String region, String summonerName) {
         Optional<LeagueShard> opShard = LeagueShard.fromString(region);
         LOLMatchDD matchesDB = null;
         if (opShard.isPresent()) {
@@ -158,7 +126,6 @@ public class MatchService {
             if (!matchString.equals(gson.toJson(new NotFoundException().getMessage(), String.class))) {
                 if (!matchString.equals(SPECIAL_GAME_MODE)) {
                     matchTemp = gson.fromJson(matchString, LOLMatchDD.class);
-                    //timelineService.loadTimelineByGameId(region, matchTemp.getGameId());
                     if (matchTemp.getGameId() == matchId)
                         found = true;
                     matchesDB.add(matchTemp);
@@ -200,53 +167,6 @@ public class MatchService {
             matchDD = matchRepository.save(matchDD);
         return matchDD;
     }
-
-
-//LOADING BY SUMMONER FOR NOW WON'T BE USED
-
-    /**
-     * @param region
-     * @param summoner
-     * @return The most recent match of the given summoner
-     */
-    public String loadMostRecentMatchBySummoner(String region, Summoner summoner) {
-        List<String> matches = summoner.getLeagueGames().get();
-
-        LOLMatch match = null;
-        LOLMatchDD matchDD = null;
-        Optional<LeagueShard> opShard = LeagueShard.fromString(region);
-        if (opShard.isPresent()) {
-            match = LOLMatch.get(opShard.get(), matches.get(0));
-            if (match.getParticipants().size() == 10)
-                matchDD = findOrSaveMatch(match);
-            else
-                return SPECIAL_GAME_MODE;
-        }
-        return gson.toJson(Objects.requireNonNullElse(matchDD, new NotFoundException().getMessage()));
-
-    }
-
-
-    /**
-     * @param region
-     * @param summoner
-     * @return A match of the given summoner
-     */
-    public String getMatchBySummoner(String region, Summoner summoner, Integer matchNumber) {
-        //limited to the last 20 for the moment, afterwards look if there's another way to get more
-        List<String> matches = summoner.getLeagueGames().get();
-        LOLMatch match = null;
-        Optional<LeagueShard> opShard = LeagueShard.fromString(region);
-        if (opShard.isPresent()) {
-            match = LOLMatch.get(opShard.get(), matches.get(matchNumber));
-            if (match.getParticipants().size() != 10)
-                return SPECIAL_GAME_MODE;
-        }
-        return gson.toJson(Objects.requireNonNullElse(match, new NotFoundException().getMessage()));
-
-    }
-
-
 }
 
 

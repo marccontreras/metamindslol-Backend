@@ -8,9 +8,7 @@ import java.util.*;
 
 @Entity
 @Data
-//the extends values will be null unless the class is also mapped in the project
-public class StaticChampionSpellDD //extends BaseSpellData
-{
+public class StaticChampionSpellDD {
     private static final long serialVersionUID = 3332883769496451613L;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -21,10 +19,6 @@ public class StaticChampionSpellDD //extends BaseSpellData
     private Image image;
     @Id
     String name;
-    public List<Image> getAltImages()
-    {
-        return altimages;
-    }
 
     //comes from the parent class
     @Column(length=10000)

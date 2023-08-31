@@ -29,8 +29,6 @@ public class LOLMatchDD implements Serializable
     @Enumerated(EnumType.STRING)
     private GameType               gameType;
     private String                 gameVersion;
-    @Enumerated(EnumType.STRING)
-    private MapType map;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
     private List<MatchParticipantDD> participants;
@@ -41,14 +39,9 @@ public class LOLMatchDD implements Serializable
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
     private List<MatchTeamDD>        teams;
-    private String                 tournamentCode;
-    
 
-//    public LOLTimeline getTimeline()
-//    {
-//        return MatchV5API.getInstance().getTimeline(platformId.toRegionShard(), platformId + "_" + gameId);
-//    }
-    
+
+
     public ZonedDateTime getMatchCreationAsDate()
     {
         return ZonedDateTime.ofInstant(Instant.ofEpochMilli(this.gameCreation), ZoneOffset.UTC);
@@ -91,13 +84,13 @@ public class LOLMatchDD implements Serializable
             return false;
         }
         LOLMatchDD lolMatchDD = (LOLMatchDD) o;
-        return gameCreation == lolMatchDD.gameCreation && gameDuration == lolMatchDD.gameDuration && gameId == lolMatchDD.gameId && gameMode == lolMatchDD.gameMode && Objects.equals(gameName, lolMatchDD.gameName) && Objects.equals(gameStartTimestamp, lolMatchDD.gameStartTimestamp) && Objects.equals(gameEndTimestamp, lolMatchDD.gameEndTimestamp) && gameType == lolMatchDD.gameType && Objects.equals(gameVersion, lolMatchDD.gameVersion) && map == lolMatchDD.map && Objects.equals(participants, lolMatchDD.participants) && platform == lolMatchDD.platform && queue == lolMatchDD.queue && Objects.equals(teams, lolMatchDD.teams) && Objects.equals(tournamentCode, lolMatchDD.tournamentCode);
+        return gameCreation == lolMatchDD.gameCreation && gameDuration == lolMatchDD.gameDuration && gameId == lolMatchDD.gameId && gameMode == lolMatchDD.gameMode && Objects.equals(gameName, lolMatchDD.gameName) && Objects.equals(gameStartTimestamp, lolMatchDD.gameStartTimestamp) && Objects.equals(gameEndTimestamp, lolMatchDD.gameEndTimestamp) && gameType == lolMatchDD.gameType && Objects.equals(gameVersion, lolMatchDD.gameVersion) &&  Objects.equals(participants, lolMatchDD.participants) && platform == lolMatchDD.platform && queue == lolMatchDD.queue && Objects.equals(teams, lolMatchDD.teams);
     }
     
     @Override
     public int hashCode()
     {
-        return Objects.hash(gameCreation, gameDuration, gameId, gameMode, gameName, gameStartTimestamp, gameEndTimestamp, gameType, gameVersion, map, participants, platform, queue, teams, tournamentCode);
+        return Objects.hash(gameCreation, gameDuration, gameId, gameMode, gameName, gameStartTimestamp, gameEndTimestamp, gameType, gameVersion, participants, platform, queue, teams);
     }
     
     @Override
@@ -113,12 +106,10 @@ public class LOLMatchDD implements Serializable
                ", gameEndTimestamp=" + gameEndTimestamp +
                ", gameType=" + gameType +
                ", gameVersion='" + gameVersion + '\'' +
-               ", mapId=" + map +
                ", participants=" + participants +
                ", platformId=" + platform +
                ", queueId=" + queue +
                ", teams=" + teams +
-               ", tournamentCode='" + tournamentCode + '\'' +
                '}';
     }
 }

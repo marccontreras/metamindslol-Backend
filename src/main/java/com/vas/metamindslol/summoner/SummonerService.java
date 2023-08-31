@@ -24,8 +24,6 @@ public class SummonerService {
     @Autowired
     SummonerRepository summonerRepository;
 
-    //maybe add a getSummonerByOnlyName, or a getSummonerByPuuid(most likely with the matches)
-
     /**
      * @param region
      * @param summonerName
@@ -39,6 +37,7 @@ public class SummonerService {
             summonerDD = summonerRepository.findByNameAndRegion(summonerName, opShard.get());
             if (summonerDD == null) {
                 summoner = baseAPI.getLoLAPI().getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
+                if(summoner !=null)
                 summonerDD = loadSummoner(summoner);
             }
         }
@@ -51,31 +50,13 @@ public class SummonerService {
      * @param summonerName
      * @return The summoner of the region
      */
-    public String getSummonerByName(String summonerName) {
+    public String searchSummonerByName(String summonerName) {
 
         List<SummonerDD> summonerDD = null;
         summonerDD = summonerRepository.findSummonerByName(summonerName);
         return gson.toJson(Objects.requireNonNullElse(summonerDD, new NotFoundException("summoners that starts with "+ summonerName).getMessage()));
     }
 
-    /*
-        public String getSummonerByName(String region, String summonerName) {
-            Optional<LeagueShard> opShard = LeagueShard.fromString(region);
-            Summoner summonerDB;
-            no.stelar7.api.r4j.pojo.lol.summoner.Summoner summoner = null;
-            if (opShard.isPresent()) {
-                summonerDB = summonerRepository.findByNameAndRegion(summonerName, opShard.get().toString());
-                if (summonerDB == null) {
-                    no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard shard = modelMapper.map(opShard.get(), no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard.class);
-                    summoner = baseAPI.getLoLAPI().getSummonerAPI().getSummonerByName(shard, summonerName);
-                    loadSummoner(summoner);
-                }
-            }
-            return gson.toJson(Objects.requireNonNullElse(summoner, new NotFoundException().getMessage()));
-
-
-        }
-        */
     private SummonerDD loadSummoner(Summoner summoner) {
         SummonerDD summonerDD = modelMapper.map(summoner, SummonerDD.class);
         return summonerRepository.save(summonerDD);

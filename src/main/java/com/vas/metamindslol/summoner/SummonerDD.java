@@ -23,8 +23,6 @@ public final class SummonerDD implements Serializable
     private String summonerId;
     private long        revisionDate;
     @Enumerated(EnumType.STRING)
-    //@Type(LeagueShard.class )
-    //@Type(PostgreSQLEnumType.class)
     private LeagueShard platform;
 
     @Override

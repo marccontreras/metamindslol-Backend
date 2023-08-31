@@ -22,6 +22,4 @@ public class ChampionNameImage implements Comparable<ChampionNameImage> {
         return this.name.compareTo(o.getName());
     }
 
-    //public String toString() {}
-
 }

@@ -23,76 +23,8 @@ public class Image implements Serializable
     private int    x;
     private int    y;
     
-    
-    /**
-     * Gets the full.
-     *
-     * @return the full
-     */
-    public String getFull()
-    {
-        return this.full;
-    }
-    
-    /**
-     * Gets the group.
-     *
-     * @return the group
-     */
-    public String getGroup()
-    {
-        return this.group;
-    }
-    
-    /**
-     * Gets the h.
-     *
-     * @return the h
-     */
-    public int getH()
-    {
-        return this.h;
-    }
-    
-    /**
-     * Gets the sprite.
-     *
-     * @return the sprite
-     */
-    public String getSprite()
-    {
-        return this.sprite;
-    }
-    
-    /**
-     * Gets the w.
-     *
-     * @return the w
-     */
-    public int getW()
-    {
-        return this.w;
-    }
-    
-    /**
-     * Gets the x.
-     *
-     * @return the x
-     */
-    public int getX()
-    {
-        return this.x;
-    }
-    
-    /**
-     * Gets the y.
-     *
-     * @return the y
-     */
-    public int getY()
-    {
-        return this.y;
-    }
+
+
     
     @Override
     public boolean equals(Object o)

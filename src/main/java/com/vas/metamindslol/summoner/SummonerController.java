@@ -10,15 +10,14 @@ public class SummonerController {
     @Autowired
     SummonerService service;
 
-
     @GetMapping(value = "/summoners/{region}/{summonerName}")
     public String getSummonerByName(@PathVariable String region,@PathVariable String summonerName){
         return service.getSummonerByNameAndRegion(region,summonerName);
     }
 
-    @GetMapping(value = "/summoners/search/{summoners}")
-    public String getSummonerByName(@PathVariable String summoners){
-        return service.getSummonerByName(summoners);
+    @GetMapping(value = "/summoners/search/{summonerName}")
+    public String searchSummonerByName(@PathVariable String summonerName){
+        return service.searchSummonerByName(summonerName);
     }
 
 }

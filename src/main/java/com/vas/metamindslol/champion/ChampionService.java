@@ -72,5 +72,4 @@ public class ChampionService {
         return gson.toJson(Objects.requireNonNullElse(champion, new NotFoundException().getMessage()));
     }
 
-    //TODO: when there's the search-bar, be sure to pass the name and image of the champ(maybe even wr)
 }
