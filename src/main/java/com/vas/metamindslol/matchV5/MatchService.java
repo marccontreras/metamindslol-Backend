@@ -1,5 +1,7 @@
 package com.vas.metamindslol.matchV5;
 
+import com.google.gson.Gson;
+import com.vas.metamindslol.GsonInstance;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
 import com.vas.metamindslol.exception.NotFoundException;
@@ -17,8 +19,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.vas.metamindslol.GsonInstance.gson;
-
 @Service
 public class MatchService {
 
@@ -28,6 +28,7 @@ public class MatchService {
     @Autowired
     MatchRepository matchRepository;
 
+    Gson gson = GsonInstance.getInstance().getGson();
     public final String SPECIAL_GAME_MODE = "EVENT GAME MODE";
 
     /**

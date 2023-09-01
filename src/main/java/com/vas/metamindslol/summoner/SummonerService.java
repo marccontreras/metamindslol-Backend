@@ -1,18 +1,18 @@
 package com.vas.metamindslol.summoner;
 
+import com.google.gson.Gson;
+import com.vas.metamindslol.GsonInstance;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.exception.NotFoundException;
-//import com.vas.metamindslol.enums.LeagueShard;
+import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.vas.metamindslol.GsonInstance.gson;
 import static com.vas.metamindslol.R4JInstance.baseAPI;
 
 @Service
@@ -24,6 +24,7 @@ public class SummonerService {
     @Autowired
     SummonerRepository summonerRepository;
 
+    Gson gson = GsonInstance.getInstance().getGson();
     /**
      * @param region
      * @param summonerName

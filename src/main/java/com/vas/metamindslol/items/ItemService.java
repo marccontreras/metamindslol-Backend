@@ -1,5 +1,7 @@
 package com.vas.metamindslol.items;
 
+import com.google.gson.Gson;
+import com.vas.metamindslol.GsonInstance;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
 import no.stelar7.api.r4j.impl.lol.raw.DDragonAPI;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static com.vas.metamindslol.GsonInstance.gson;
 
 @Service
 public class ItemService {
@@ -19,6 +20,8 @@ public class ItemService {
 
     @Autowired
     ItemRepository itemRepository;
+
+    Gson gson = GsonInstance.getInstance().getGson();
     DDragonAPI dDragonAPI= R4JInstance.dDragonAPI;
 
     /**

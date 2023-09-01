@@ -1,12 +1,9 @@
 package com.vas.metamindslol.matchV5;
 
-import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import static com.vas.metamindslol.GsonInstance.gson;
 
 @RestController
 public class MatchController {

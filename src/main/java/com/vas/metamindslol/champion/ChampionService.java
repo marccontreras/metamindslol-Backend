@@ -1,5 +1,7 @@
 package com.vas.metamindslol.champion;
 
+import com.google.gson.Gson;
+import com.vas.metamindslol.GsonInstance;
 import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
 import com.vas.metamindslol.exception.NotFoundException;
@@ -9,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
-import static com.vas.metamindslol.GsonInstance.gson;
 
 @Service
 public class ChampionService {
@@ -22,6 +22,7 @@ public class ChampionService {
     @Autowired
     ChampionRepository championRepository;
 
+    Gson gson = GsonInstance.getInstance().getGson();
     /**
      * @return The name and image route of the champions ordered by name
      */

@@ -12,7 +12,9 @@ public interface MatchRepository extends JpaRepository<LOLMatchDD, Long> {
     //+ " WHERE P.summonerName=:summonerName")
     @Query("SELECT M FROM LOLMatchDD M WHERE M.gameId IN (SELECT M.gameId FROM LOLMatchDD  "
             + " JOIN  M.participants P "
-            + " WHERE P.summonerName=:summonerName)")
+            + " WHERE P.summonerName=:summonerName "
+            + ")"
+            + "ORDER BY M.gameCreation DESC limit 20 ")
     public List<LOLMatchDD> getMatchesBySummonerName(String summonerName);
 
     @Query("SELECT M FROM LOLMatchDD M WHERE M.gameId IN(SELECT M.gameId FROM LOLMatchDD  "
