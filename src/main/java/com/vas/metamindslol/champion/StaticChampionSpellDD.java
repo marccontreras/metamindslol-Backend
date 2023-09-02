@@ -15,39 +15,34 @@ public class StaticChampionSpellDD {
     @JoinColumn
     private List<Image> altimages;
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Image image;
     @Id
     String name;
 
     //comes from the parent class
-    @Column(length=10000)
-    private String             description;
+    @Column(length = 10000)
+    private String description;
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass())
-        {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o))
-        {
+        if (!super.equals(o)) {
             return false;
         }
-        
+
         StaticChampionSpellDD that = (StaticChampionSpellDD) o;
-        
+
         return Objects.equals(altimages, that.altimages);
     }
-    
+
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (altimages != null ? altimages.hashCode() : 0);
         return result;

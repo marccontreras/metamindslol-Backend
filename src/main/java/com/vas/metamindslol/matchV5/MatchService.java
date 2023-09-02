@@ -6,6 +6,9 @@ import com.vas.metamindslol.ModelMapperConfig;
 import com.vas.metamindslol.R4JInstance;
 import com.vas.metamindslol.exception.NotFoundException;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
+import no.stelar7.api.r4j.basic.constants.types.lol.GameModeType;
+import no.stelar7.api.r4j.basic.constants.types.lol.GameQueueType;
+import no.stelar7.api.r4j.basic.constants.types.lol.MatchlistMatchType;
 import no.stelar7.api.r4j.basic.constants.types.lol.SummonerSpellType;
 import no.stelar7.api.r4j.impl.lol.builders.matchv5.match.MatchListBuilder;
 import no.stelar7.api.r4j.pojo.lol.match.v5.LOLMatch;
@@ -29,7 +32,7 @@ public class MatchService {
     MatchRepository matchRepository;
 
     Gson gson = GsonInstance.getInstance().getGson();
-    public final String SPECIAL_GAME_MODE = "EVENT GAME MODE";
+    public final String SPECIAL_GAME_MODE = "NON-RANKED GAMES";
 
     /**
      * @param region
@@ -48,9 +51,14 @@ public class MatchService {
         if (opShard.isPresent()) {
             summoner = R4JInstance.loLAPI.getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
             //add the start to be able to get games after the 100 first
-            List<String> matches = new MatchListBuilder().withPlatform(summoner.getPlatform()).withPuuid(summoner.getPUUID()).withCount(count).get();
+            List<String> matches = new MatchListBuilder()
+                    .withPlatform(summoner.getPlatform())
+                    .withPuuid(summoner.getPUUID())
+                    .withType(MatchlistMatchType.RANKED)
+                    .withCount(count).get();
             match = LOLMatch.get(opShard.get(), matches.get(gameNumber));
-            if (match.getParticipants().size() == 10) {
+            if (match.getQueue().equals(GameQueueType.RANKED_SOLO_5X5) || match.getQueue().equals(GameQueueType.RANKED_FLEX_SR)
+                    || match.getQueue().equals(GameQueueType.TEAM_BUILDER_RANKED_SOLO) || match.getQueue().equals(GameQueueType.TEAM_BUILDER_DRAFT_RANKED_5X5)) {
                 matchDD = findOrSaveMatch(match);
             } else
                 return SPECIAL_GAME_MODE;
@@ -73,7 +81,7 @@ public class MatchService {
             //make a method that finds by matchParticipant, summonerName(maybe puuid)
             matchesDB = matchRepository.getMatchesBySummonerName(summonerName);
         }
-        return gson.toJson(Objects.requireNonNullElse(matchesDB, new NotFoundException().getMessage()));
+        return gson.toJson(Objects.requireNonNullElse(matchesDB, new NotFoundException("Matches").getMessage()));
 
     }
 
@@ -102,10 +110,11 @@ public class MatchService {
      * @param summonerName
      * @return The new matches
      */
-    public String loadUntilFoundMatchBySummonerName(String region, String summonerName,Integer gamesToFind) {
-        //can search up to 100 per page, up to a maximum of 1000, for now only the first 100 will be able to be listed
-        if(gamesToFind==null|| gamesToFind>100)
-            gamesToFind=20;
+    public String loadUntilFoundMatchBySummonerName(String region, String summonerName, Integer gamesToFind) {
+        //can search up to 100 per page, up to a maximum of 1000, in this method only the first 100 will be able
+        // to be listed
+        if (gamesToFind == null || gamesToFind > 100)
+            gamesToFind = 20;
         LOLMatchDD match;
         long matchId = 0;
 
@@ -119,27 +128,24 @@ public class MatchService {
         List<LOLMatchDD> matchesDB = new ArrayList<>();
         LOLMatchDD matchTemp = null;
         int count = 0;
+        int gamesFound = 0;
         boolean found = false;
-        String exc = new NotFoundException().getMessage();
-        String notFound = gson.toJson(exc, String.class);
-        while (!found && count < gamesToFind) {
+        while (!found && gamesFound < gamesToFind && count < 100) {
             matchString = loadMatchBySummonerName(region, summonerName, gamesToFind, count);
             if (!matchString.equals(gson.toJson(new NotFoundException().getMessage(), String.class))) {
-                if (!matchString.equals(SPECIAL_GAME_MODE)) {
-                    matchTemp = gson.fromJson(matchString, LOLMatchDD.class);
-                    if (matchTemp.getGameId() == matchId)
-                        found = true;
-                    matchesDB.add(matchTemp);
-                }
+                matchTemp = gson.fromJson(matchString, LOLMatchDD.class);
+                if (matchTemp.getGameId() == matchId)
+                    found = true;
+                matchesDB.add(matchTemp);
+                gamesFound++;
             } else if (count == 0)
-                gson.toJson(new NotFoundException("games"));//return games not found
+                return gson.toJson(new NotFoundException("Matches"));//summoner has no games
             else
                 found = true;
 
             count++;
         }
-        return gson.toJson(Objects.requireNonNullElse(matchesDB, new NotFoundException().getMessage()));
-
+        return gson.toJson(matchesDB);
     }
 
 
@@ -157,9 +163,9 @@ public class MatchService {
         for (int i = 0; i < teams.size(); i++) {
             teamsDD.get(i).setWin(teams.get(i).didWin());
         }
-        List<MatchParticipantDD>participants = matchDD.getParticipants();
+        List<MatchParticipantDD> participants = matchDD.getParticipants();
         SummonerSpellType spellType = SummonerSpellType.AUTO_SMITE;
-        for(MatchParticipantDD participantDD :participants){
+        for (MatchParticipantDD participantDD : participants) {
             participantDD.setSummonerSpell1(spellType.getFromCode(String.valueOf(participantDD.getSummoner1Id())).get().getApiName());
             participantDD.setSummonerSpell2(spellType.getFromCode(String.valueOf(participantDD.getSummoner2Id())).get().getApiName());
 

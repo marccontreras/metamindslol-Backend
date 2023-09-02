@@ -2,6 +2,7 @@ package com.vas.metamindslol.matchV5;
 
 import com.vas.metamindslol.R4JInstance;
 import com.vas.metamindslol.exception.NotFoundException;
+import jakarta.transaction.Transactional;
 import no.stelar7.api.r4j.basic.constants.api.regions.LeagueShard;
 import no.stelar7.api.r4j.pojo.lol.summoner.Summoner;
 import org.junit.Assert;
@@ -10,32 +11,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@Transactional
 @SpringBootTest
 public class MatchServiceTest {
-
 
     @Autowired
     MatchService service;
 
     private final String name = "simply me";
-    private final Summoner summoner = R4JInstance.loLAPI.getSummonerAPI().getSummonerByName(LeagueShard.EUW1,name);
+    private final String errorMessage= new NotFoundException("Matches").getMessage();
     private final String region = "EUW";
-/*
-    @Test
-    public void testgetMatch() {
-
-        Assertions.assertNotNull(service.getMatchBySummoner(region, summoner, 1));
-    }
 
     @Test
-    public void testgetMostRecentMatch() {
-        Assertions.assertNotEquals(new NotFoundException().getMessage(), service.loadMostRecentMatchBySummoner(region, summoner));
+    public void testgetMatchesBySummonerName() {
+        Assertions.assertNotEquals(errorMessage,service.getMatchesBySummonerName(region, name));
     }
-
-    @Test
-    public void testgetMostRecentMatchByName() {
-        Assertions.assertNotEquals(new NotFoundException().getMessage(), service.loadMatchBySummonerName(region, name));
+        @Test
+    public void testloadUntilFoundMatchBySummonerName() {
+            Assertions.assertNotEquals(errorMessage, service.loadUntilFoundMatchBySummonerName(region, name,null));
     }
-
- */
 }

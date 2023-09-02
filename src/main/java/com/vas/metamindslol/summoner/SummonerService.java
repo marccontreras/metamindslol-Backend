@@ -25,6 +25,7 @@ public class SummonerService {
     SummonerRepository summonerRepository;
 
     Gson gson = GsonInstance.getInstance().getGson();
+
     /**
      * @param region
      * @param summonerName
@@ -38,13 +39,13 @@ public class SummonerService {
             summonerDD = summonerRepository.findByNameAndRegion(summonerName, opShard.get());
             if (summonerDD == null) {
                 summoner = baseAPI.getLoLAPI().getSummonerAPI().getSummonerByName(opShard.get(), summonerName);
-                if(summoner !=null)
-                summonerDD = loadSummoner(summoner);
+                if (summoner != null)
+                    summonerDD = loadSummoner(summoner);
+                else
+                    return gson.toJson(new NotFoundException("Summoner").getMessage());
             }
         }
         return gson.toJson(Objects.requireNonNullElse(summonerDD, new NotFoundException("Region").getMessage()));
-
-
     }
 
     /**
@@ -55,7 +56,7 @@ public class SummonerService {
 
         List<SummonerDD> summonerDD = null;
         summonerDD = summonerRepository.findSummonerByName(summonerName);
-        return gson.toJson(Objects.requireNonNullElse(summonerDD, new NotFoundException("summoners that starts with "+ summonerName).getMessage()));
+        return gson.toJson(Objects.requireNonNullElse(summonerDD, new NotFoundException("summoners that starts with " + summonerName).getMessage()));
     }
 
     private SummonerDD loadSummoner(Summoner summoner) {

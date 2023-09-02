@@ -1,5 +1,6 @@
 package com.vas.metamindslol.champion;
 
+import com.vas.metamindslol.exception.NotFoundException;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,13 +13,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChampionServiceTest {
     @Autowired
     ChampionService service;
+    private final String errorMessage= new NotFoundException("champion").getMessage();
     @Test
     public void testgetChampions() {
-        Assertions.assertNotNull(service.getChampions());
+        Assertions.assertNotEquals(errorMessage, service.getChampions());
     }
 
     @Test
     public void testgetChampion() {
-        Assertions.assertNotNull(service.getChampion(1));
+        Assertions.assertNotEquals(errorMessage,service.getChampion(1));
+    }
+
+    @Test
+    public void testgetChampionName() {
+        Assertions.assertNotEquals(errorMessage,service.getChampion("Annie"));
     }
 }

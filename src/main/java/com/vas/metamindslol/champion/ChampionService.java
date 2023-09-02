@@ -41,8 +41,12 @@ public class ChampionService {
 
         Map<Integer, StaticChampion> championsDdragon = dDragonAPI.getChampions();
         List<StaticChampion> list = new ArrayList<>(championsDdragon.values());
-
         List<StaticChampionDD> championsList = new ModelMapperConfig().mapAsList(list, StaticChampionDD.class);
+        for(StaticChampionDD champion:championsList){
+            champion.getPassive().setDescription(sanitize(champion.getPassive().getDescription()));
+            champion.getSpells().forEach(t->t.setDescription(sanitize(t.getDescription())));
+        }
+
         return championRepository.saveAll(championsList);
     }
 
@@ -56,6 +60,7 @@ public class ChampionService {
         if (opChampion.isEmpty()) {
             StaticChampion championD = dDragonAPI.getChampion(championId);
             champion = modelMapper.map(championD, StaticChampionDD.class);
+            champion.getPassive().setDescription(sanitize(champion.getPassive().getDescription()));
             championRepository.save(champion);
         } else {
             champion = opChampion.get();
@@ -70,7 +75,16 @@ public class ChampionService {
     public String getChampion(String championName) {
         StaticChampionDD champion = championRepository.getChampionByName(championName);
 
-        return gson.toJson(Objects.requireNonNullElse(champion, new NotFoundException().getMessage()));
+        return gson.toJson(Objects.requireNonNullElse(champion, new NotFoundException("champion").getMessage()));
+    }
+
+    private String sanitize(String inData)
+    {
+        String outData = inData;
+        outData = outData.replaceAll("<br>", "\n");
+        outData = outData.replaceAll("<.+?>", "");
+        outData = outData.replaceAll("\n", "<br>");
+        return outData;
     }
 
 }
