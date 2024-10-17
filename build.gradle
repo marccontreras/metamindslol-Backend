@@ -22,6 +22,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.1.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -33,7 +34,7 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'com.github.stelar7:R4J:2.2.21'
+	implementation 'com.github.stelar7:R4J:2.5.4'
 	implementation 'com.google.code.gson:gson'
 	runtimeOnly 'org.postgresql:postgresql:42.2.27'
 // https://mvnrepository.com/artifact/org.modelmapper/modelmapper

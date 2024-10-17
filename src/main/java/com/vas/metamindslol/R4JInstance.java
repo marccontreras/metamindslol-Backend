@@ -6,7 +6,7 @@ import no.stelar7.api.r4j.impl.lol.raw.DDragonAPI;
 import no.stelar7.api.r4j.impl.lol.raw.ImageAPI;
 
 public  class R4JInstance {
-    private static final String apiKey = "put your api key here";
+    private static final String apiKey = "RGAPI-f7ec0d1d-8322-418b-a963-23fdf4804e0b";
 //    public static  String apiKey = "";
 
     static APICredentials creds = new APICredentials(apiKey);
