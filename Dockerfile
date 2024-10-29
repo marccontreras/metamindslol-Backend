@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copia el archivo JAR generado en el contenedor
-COPY target/*.jar app.jar
+COPY build/libs/*.jar app.jar
 
 # Expone el puerto (Render le asignará uno dinámicamente)
 EXPOSE 8080
